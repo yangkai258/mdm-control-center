@@ -1,0 +1,44 @@
+{
+  "cookies": [
+    {
+      "name": "web_session",
+      "value": "0400698e1426cd563d66060b993b4b4ff3f972",
+      "domain": ".xiaohongshu.com",
+      "path": "/",
+      "expires": 1804469135.377,
+      "secure": true,
+      "httpOnly": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "webId",
+      "value": "e53cfb83fe2558b73f5ff667f78444ca",
+      "domain": ".xiaohongshu.com",
+      "path": "/",
+      "expires": 1804469083.0,
+      "secure": true,
+      "httpOnly": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "gid",
+      "value": "yjSSYdK0DdS0yjSSYdKjd4iUSfF16WviK0V8uiM3WyCWud282KdE92888q4YJj48jqSK0Ky2",
+      "domain": ".xiaohongshu.com",
+      "path": "/",
+      "expires": 1817976286.273,
+      "secure": true,
+      "httpOnly": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "a1",
+      "value": "19cc8e69ecdrlm7yf6aj0i71x7z56ewtc4ze5fpfs50000348294",
+      "domain": ".xiaohongshu.com",
+      "path": "/",
+      "expires": 1804469083.0,
+      "secure": true,
+      "httpOnly": true,
+      "sameSite": "None"
+    }
+  ]
+}

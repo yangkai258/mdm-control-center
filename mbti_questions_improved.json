@@ -1,0 +1,1802 @@
+[
+  {
+    "id": 1,
+    "question": "在聚会中，你通常：",
+    "options": [
+      {
+        "text": "与很多人交流，包括陌生人",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "只与几个熟悉的人交谈",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "你更倾向于：",
+    "options": [
+      {
+        "text": "通过实践学习",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "通过理论思考学习",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "做决定时，你更注重：",
+    "options": [
+      {
+        "text": "逻辑和客观事实",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "情感和人际关系",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "你的生活风格更偏向：",
+    "options": [
+      {
+        "text": "有计划和组织",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "灵活和随性",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "当你感到疲惫时，你更喜欢：",
+    "options": [
+      {
+        "text": "与朋友一起放松",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "独自休息或阅读",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "你更相信：",
+    "options": [
+      {
+        "text": "具体经验和事实",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "灵感和可能性",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "评价他人时，你更看重：",
+    "options": [
+      {
+        "text": "他们的能力和成就",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "他们的感受和价值观",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "处理工作时，你倾向于：",
+    "options": [
+      {
+        "text": "提前计划并按时完成",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "在压力下工作得更好",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "在新环境中，你通常：",
+    "options": [
+      {
+        "text": "主动认识新朋友",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "先观察再参与",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "你更擅长：",
+    "options": [
+      {
+        "text": "处理具体细节",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "看到整体大局",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "当有人批评你时，你更可能：",
+    "options": [
+      {
+        "text": "分析批评是否有道理",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "感到受伤或不安",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "你的书桌通常是：",
+    "options": [
+      {
+        "text": "整洁有序的",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "有些杂乱但你知道东西在哪",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "在社交场合，你通常：",
+    "options": [
+      {
+        "text": "是谈话的中心",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "倾听多于发言",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "question": "学习新东西时，你更喜欢：",
+    "options": [
+      {
+        "text": "按部就班地学习",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "跳跃式地理解概念",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "question": "做重要决定时，你更依赖：",
+    "options": [
+      {
+        "text": "客观分析和数据",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "个人价值观和感受",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "question": "你的假期计划通常是：",
+    "options": [
+      {
+        "text": "详细安排好的",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "随性而定的",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "question": "在团队中，你更可能：",
+    "options": [
+      {
+        "text": "主动发言并带动气氛",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "倾听并思考后再表达",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "question": "描述一个地方时，你更注重：",
+    "options": [
+      {
+        "text": "具体的环境和细节",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "整体的氛围和感觉",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 18
+  },
+  {
+    "question": "当你需要放松时，你更倾向于：",
+    "options": [
+      {
+        "text": "约朋友出去玩或参加社交活动",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "在家看书、看电影或独自休息",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 19
+  },
+  {
+    "question": "评价工作时，你更看重：",
+    "options": [
+      {
+        "text": "效率和成果质量",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "团队合作和氛围",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 20
+  },
+  {
+    "id": 21,
+    "question": "面对冲突时，你倾向于：",
+    "options": [
+      {
+        "text": "就事论事分析问题",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "考虑各方感受",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "question": "你的生活节奏更偏向：",
+    "options": [
+      {
+        "text": "有计划有规律",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "灵活适应变化",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "question": "学习新技能时，你更关注：",
+    "options": [
+      {
+        "text": "技术的原理和逻辑",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "应用的价值和意义",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 23
+  },
+  {
+    "question": "学习新知识时，你更喜欢：",
+    "options": [
+      {
+        "text": "按步骤实践掌握",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "理解背后的原理和概念",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 24
+  },
+  {
+    "question": "你的日常生活通常是：",
+    "options": [
+      {
+        "text": "有计划、有规律的",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "灵活、随性的",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 25
+  },
+  {
+    "question": "处理多项任务时，你更擅长：",
+    "options": [
+      {
+        "text": "按优先级顺序完成",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "多任务并行处理",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 26
+  },
+  {
+    "question": "你的工作环境通常是：",
+    "options": [
+      {
+        "text": "整洁有序，物品归位",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "有些杂乱但你知道东西在哪",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 27
+  },
+  {
+    "question": "你的学习方式更偏向：",
+    "options": [
+      {
+        "text": "小组讨论和互动学习",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "独立研究和自主学习",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 28
+  },
+  {
+    "question": "你的朋友圈通常是：",
+    "options": [
+      {
+        "text": "广泛而多样，认识很多人",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "小而精，有几个知心好友",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 29
+  },
+  {
+    "id": 30,
+    "question": "与人交流时，你更倾向于：",
+    "options": [
+      {
+        "text": "谈论具体经历和事实",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "讨论想法和理论",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "question": "在工作会议中，你通常：",
+    "options": [
+      {
+        "text": "积极发言，表达自己的想法",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "先倾听，思考成熟后再发言",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 31
+  },
+  {
+    "id": 32,
+    "question": "面对计划时，你更可能：",
+    "options": [
+      {
+        "text": "严格遵守计划",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "根据情况调整",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "question": "解决问题时，你更依赖：",
+    "options": [
+      {
+        "text": "已知的有效方法",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "创新的解决方案",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 33
+  },
+  {
+    "id": 34,
+    "question": "记忆信息时，你更容易记住：",
+    "options": [
+      {
+        "text": "具体的细节和数据",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "整体的模式和联系",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "question": "帮助他人时，你更可能：",
+    "options": [
+      {
+        "text": "提供具体的解决方案",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "给予情感支持和理解",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 35
+  },
+  {
+    "id": 36,
+    "question": "学习新技能时，你更喜欢：",
+    "options": [
+      {
+        "text": "参加培训班与他人一起学习",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "自学或一对一指导",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "question": "面对新事物时，你首先注意到：",
+    "options": [
+      {
+        "text": "它的实际功能和外观",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "它的象征意义和潜力",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "question": "解决问题时，你更依赖：",
+    "options": [
+      {
+        "text": "过去的经验和已知方法",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "新的想法和创新方案",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "question": "面对批评时，你更可能：",
+    "options": [
+      {
+        "text": "理性分析批评的合理性",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "感受批评带来的情绪影响",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 39
+  },
+  {
+    "id": 40,
+    "question": "给予反馈时，你更注重：",
+    "options": [
+      {
+        "text": "事实和准确性",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "方式和语气",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "question": "你更关注：",
+    "options": [
+      {
+        "text": "眼前的具体事实",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "未来的可能性",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "question": "面对突然的变化时，你更可能：",
+    "options": [
+      {
+        "text": "感到不安，希望恢复原计划",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "灵活适应，享受变化带来的新鲜感",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 42
+  },
+  {
+    "id": 43,
+    "question": "在社交活动中，你通常：",
+    "options": [
+      {
+        "text": "积极参与并享受热闹",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "更喜欢安静的小范围交流",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "question": "你的工作环境通常是：",
+    "options": [
+      {
+        "text": "整洁有序的",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "随性但有效率的",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "question": "你的价值观更偏向：",
+    "options": [
+      {
+        "text": "公正和真理",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "和谐和同情",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "question": "你的时间管理风格是：",
+    "options": [
+      {
+        "text": "严格按时间表执行",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "大致安排，灵活调整",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 46
+  },
+  {
+    "question": "看待问题时，你倾向于：",
+    "options": [
+      {
+        "text": "基于事实和经验分析",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "探索新的可能性和创意",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 47
+  },
+  {
+    "id": 48,
+    "question": "面对选择时，你更可能：",
+    "options": [
+      {
+        "text": "做出明确选择",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "保留多种可能性",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "question": "认识新朋友时，你更可能：",
+    "options": [
+      {
+        "text": "主动开启话题，热情交流",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "保持礼貌，等待对方先开口",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 49
+  },
+  {
+    "id": 50,
+    "question": "周末你更喜欢：",
+    "options": [
+      {
+        "text": "安排丰富的社交活动",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "享受安静的私人时间",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "question": "面对冲突时，你倾向于：",
+    "options": [
+      {
+        "text": "就事论事，分析问题本质",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "维护和谐，考虑各方感受",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 51
+  },
+  {
+    "question": "处理工作任务时，你倾向于：",
+    "options": [
+      {
+        "text": "提前规划，按时完成",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "灵活应对，在压力下效率更高",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 52
+  },
+  {
+    "id": 53,
+    "question": "处理工作时，你更关注：",
+    "options": [
+      {
+        "text": "任务完成的质量",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "团队合作的氛围",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "question": "你更擅长：",
+    "options": [
+      {
+        "text": "执行具体的任务",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "构思抽象的概念",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "question": "记忆信息时，你更容易记住：",
+    "options": [
+      {
+        "text": "具体的数字、日期和细节",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "整体的模式和关联",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 55
+  },
+  {
+    "question": "安排假期时，你倾向于：",
+    "options": [
+      {
+        "text": "制定详细的行程计划",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "大致安排，留出自由发挥空间",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 56
+  },
+  {
+    "id": 57,
+    "question": "你的能量主要来自：",
+    "options": [
+      {
+        "text": "与外界互动和社交",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "独处和内省",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "question": "处理人际关系时，你更倾向于：",
+    "options": [
+      {
+        "text": "明确界限和原则",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "维护和谐和情感联系",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 58
+  },
+  {
+    "question": "做计划时，你更关注：",
+    "options": [
+      {
+        "text": "具体的实施步骤和时间表",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "整体的目标和愿景",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 59
+  },
+  {
+    "id": 60,
+    "question": "完成任务时，你倾向于：",
+    "options": [
+      {
+        "text": "提前完成避免拖延",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "在截止日期前完成",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "question": "选择礼物时，你更看重：",
+    "options": [
+      {
+        "text": "实用性和具体功能",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "象征意义和情感价值",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 61
+  },
+  {
+    "question": "与人交流时，你更倾向于：",
+    "options": [
+      {
+        "text": "谈论具体的经历和事实",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "讨论抽象的想法和理论",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 62
+  },
+  {
+    "question": "选择职业时，你更考虑：",
+    "options": [
+      {
+        "text": "发展前景和薪资待遇",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "工作意义和团队氛围",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 63
+  },
+  {
+    "id": 64,
+    "question": "做计划时，你更关注：",
+    "options": [
+      {
+        "text": "具体的实施步骤",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "整体的愿景目标",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "question": "描述事物时，你倾向于：",
+    "options": [
+      {
+        "text": "使用具体细节和实例",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "使用比喻和象征",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "question": "评价艺术作品时，你更注重：",
+    "options": [
+      {
+        "text": "技巧和细节表现",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "情感表达和深层含义",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 66
+  },
+  {
+    "question": "做决定时，你更愿意：",
+    "options": [
+      {
+        "text": "尽快做出明确决定",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "保持开放，收集更多信息",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 67
+  },
+  {
+    "question": "周末安排活动时，你倾向于：",
+    "options": [
+      {
+        "text": "安排丰富的社交聚会",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "享受安静的私人时光",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 68
+  },
+  {
+    "question": "学习新东西时，你更喜欢：",
+    "options": [
+      {
+        "text": "系统性地按计划学习",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "根据兴趣跳跃式学习",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 69
+  },
+  {
+    "question": "购物时，你更倾向于：",
+    "options": [
+      {
+        "text": "有明确目标，快速完成",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "随意浏览，发现惊喜",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 70
+  },
+  {
+    "id": 71,
+    "question": "你的时间管理风格是：",
+    "options": [
+      {
+        "text": "详细规划时间",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "大致安排灵活应对",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "question": "当你需要思考问题时，你倾向于：",
+    "options": [
+      {
+        "text": "通过与人讨论来理清思路",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "独自思考并整理想法",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "question": "在团队项目中，你更擅长：",
+    "options": [
+      {
+        "text": "协调沟通，带动团队氛围",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "深入研究，提供专业建议",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 73
+  },
+  {
+    "id": 74,
+    "question": "评价他人时，你更看重：",
+    "options": [
+      {
+        "text": "能力和效率",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "善意和动机",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "question": "学习知识时，你更重视：",
+    "options": [
+      {
+        "text": "理论的严谨性",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "应用的关怀性",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "question": "帮助他人时，你更倾向于：",
+    "options": [
+      {
+        "text": "提供实际的解决方案",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "给予情感的支持",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "question": "认识新朋友时，你通常：",
+    "options": [
+      {
+        "text": "主动介绍自己并开启话题",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "等待对方先开口或观察",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "question": "当你感到兴奋时，你更想：",
+    "options": [
+      {
+        "text": "立刻与他人分享",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "先自己品味这份感受",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "question": "旅行时，你更享受：",
+    "options": [
+      {
+        "text": "体验具体的景点和活动",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "感受当地的文化和氛围",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 79
+  },
+  {
+    "id": 80,
+    "question": "面对压力时，你更可能：",
+    "options": [
+      {
+        "text": "找朋友倾诉寻求支持",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "独自处理情绪和问题",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "question": "你的社交能量主要来自：",
+    "options": [
+      {
+        "text": "与人互动和外部刺激",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "独处和内省的时间",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 81
+  },
+  {
+    "id": 82,
+    "question": "组织活动时，你更注重：",
+    "options": [
+      {
+        "text": "结构和流程",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "自由和创意",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "question": "当你遇到有趣的事情时，你第一时间想：",
+    "options": [
+      {
+        "text": "立刻分享给朋友或家人",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "先自己品味和思考",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 83
+  },
+  {
+    "id": 84,
+    "question": "在工作环境中，你倾向于：",
+    "options": [
+      {
+        "text": "开放式办公，便于交流",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "独立空间，减少干扰",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "question": "做决定时，你更重视：",
+    "options": [
+      {
+        "text": "逻辑和客观标准",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "情感和人际关系",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "question": "面对压力时，你更可能：",
+    "options": [
+      {
+        "text": "找朋友倾诉寻求支持",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "独自思考解决方案",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 86
+  },
+  {
+    "id": 87,
+    "question": "表达观点时，你更注重：",
+    "options": [
+      {
+        "text": "逻辑的连贯性",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "情感的共鸣",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "question": "给予他人反馈时，你更注重：",
+    "options": [
+      {
+        "text": "事实的准确性和建设性",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "对方的感受和接受程度",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 88
+  },
+  {
+    "question": "做重要决定时，你更重视：",
+    "options": [
+      {
+        "text": "逻辑分析和客观数据",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "个人感受和人际关系",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 89
+  },
+  {
+    "question": "选择礼物时，你更看重：",
+    "options": [
+      {
+        "text": "实用性和具体功能",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "象征意义和情感价值",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ],
+    "id": 90
+  },
+  {
+    "question": "在工作会议中，你通常：",
+    "options": [
+      {
+        "text": "积极发言，表达自己的想法",
+        "type": "E",
+        "score_e": 1,
+        "score_i": 0
+      },
+      {
+        "text": "先倾听，思考成熟后再发言",
+        "type": "I",
+        "score_e": 0,
+        "score_i": 1
+      }
+    ],
+    "id": 91
+  },
+  {
+    "question": "制定规则时，你更注重：",
+    "options": [
+      {
+        "text": "公平和一致性",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "灵活性和人性化",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 92
+  },
+  {
+    "id": 93,
+    "question": "面对选择时，你更依赖：",
+    "options": [
+      {
+        "text": "理性的分析",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "内心的感受",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ]
+  },
+  {
+    "question": "制定规则时，你更注重：",
+    "options": [
+      {
+        "text": "公平和一致性",
+        "type": "T",
+        "score_t": 1,
+        "score_f": 0
+      },
+      {
+        "text": "灵活性和人性化",
+        "type": "F",
+        "score_t": 0,
+        "score_f": 1
+      }
+    ],
+    "id": 94
+  },
+  {
+    "id": 95,
+    "question": "处理信息时，你倾向于：",
+    "options": [
+      {
+        "text": "快速分类做决定",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "持续收集新信息",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "question": "做决定时，你更愿意：",
+    "options": [
+      {
+        "text": "尽快做出决定",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "保持开放收集信息",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "question": "学习时，你更喜欢：",
+    "options": [
+      {
+        "text": "按步骤操作练习",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "理解背后的原理",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  },
+  {
+    "question": "购物时，你更倾向于：",
+    "options": [
+      {
+        "text": "有明确目标，快速完成",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "随意浏览，发现惊喜",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ],
+    "id": 98
+  },
+  {
+    "id": 99,
+    "question": "你的决策过程更偏向：",
+    "options": [
+      {
+        "text": "结论导向",
+        "type": "J",
+        "score_j": 1,
+        "score_p": 0
+      },
+      {
+        "text": "过程导向",
+        "type": "P",
+        "score_j": 0,
+        "score_p": 1
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "question": "看待世界时，你更注重：",
+    "options": [
+      {
+        "text": "现实和实际存在",
+        "type": "S",
+        "score_s": 1,
+        "score_n": 0
+      },
+      {
+        "text": "潜力和发展趋势",
+        "type": "N",
+        "score_s": 0,
+        "score_n": 1
+      }
+    ]
+  }
+]

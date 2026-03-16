@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-03-14T00:54:19.914929",
+  "agents": {
+    "qd": {
+      "name": "前端开发Agent",
+      "status": "busy",
+      "current_task": "社交分享界面开发"
+    },
+    "hd": {
+      "name": "后端开发Agent",
+      "status": "busy",
+      "current_task": "社交分享API开发"
+    },
+    "cs": {
+      "name": "测试Agent",
+      "status": "busy",
+      "current_task": "社交功能测试"
+    },
+    "cp": {
+      "name": "产品Agent",
+      "status": "busy",
+      "current_task": "社交功能规划"
+    },
+    "yw": {
+      "name": "运维Agent",
+      "status": "busy",
+      "current_task": "服务器性能监控优化"
+    }
+  },
+  "task_queue": [
+    {
+      "agent": "qd",
+      "task": "社交分享界面开发",
+      "assigned_time": "2026-03-14T00:54:19.914885"
+    },
+    {
+      "agent": "hd",
+      "task": "社交分享API开发",
+      "assigned_time": "2026-03-14T00:54:19.914902"
+    },
+    {
+      "agent": "cs",
+      "task": "社交功能测试",
+      "assigned_time": "2026-03-14T00:54:19.914912"
+    },
+    {
+      "agent": "yw",
+      "task": "服务器性能监控优化",
+      "assigned_time": "2026-03-14T00:54:19.914923"
+    }
+  ]
+}

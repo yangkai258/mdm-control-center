@@ -1,0 +1,2 @@
+# 主管Agent每小时巡检
+0 * * * * cd C:\Users\YKing\.openclaw\workspace && python C:\Users\YKing\.openclaw\workspace\supervisor_simple.py --check

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI性格测试 - 登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #999;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            margin-bottom: -2px;
+        }
+        
+        .form-container {
+            display: none;
+        }
+        
+        .form-container.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .gender-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .gender-option {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .gender-option input {
+            display: none;
+        }
+        
+        .gender-label {
+            display: block;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .gender-option input:checked + .gender-label {
+            border-color: #667eea;
+            background: #f0f4ff;
+            color: #667eea;
+        }
+        
+        .test-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .test-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .test-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <h1>🧠 MBTI性格测试</h1>
+                <p>探索真实的自我，发现性格密码</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="showForm('login')">登录</div>
+                <div class="tab" onclick="showForm('register')">注册</div>
+            </div>
+            
+            <!-- 登录表单 -->
+            <div id="login-form" class="form-container active">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="login-username">用户名</label>
+                        <input type="text" id="login-username" class="form-control" placeholder="请输入用户名" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">密码</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="请输入密码" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">登录</button>
+                </form>
+                
+                <div class="test-link">
+                    <p>想先体验测试？ <a href="test.html">直接开始测试 →</a></p>
+                </div>
+            </div>
+            
+            <!-- 注册表单 -->
+            <div id="register-form" class="form-container">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="register-username">用户名 *</label>
+                        <input type="text" id="register-username" class="form-control" placeholder="请输入用户名（唯一标识）" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">密码 *</label>
+                        <input type="password" id="register-password" class="form-control" placeholder="请输入密码" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-nickname">昵称 *</label>
+                        <input type="text" id="register-nickname" class="form-control" placeholder="请输入昵称" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>性别 *</label>
+                        <div class="gender-group">
+                            <div class="gender-option">
+                                <input type="radio" id="gender-male" name="gender" value="男" required>
+                                <label for="gender-male" class="gender-label">男</label>
+                            </div>
+                            <div class="gender-option">
+                                <input type="radio" id="gender-female" name="gender" value="女">
+                                <label for="gender-female" class="gender-label">女</label>
+                            </div>
+                            <div class="gender-option">
+                                <input type="radio" id="gender-other" name="gender" value="其他">
+                                <label for="gender-other" class="gender-label">其他</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-age">年龄 *</label>
+                        <input type="number" id="register-age" class="form-control" placeholder="请输入年龄" min="1" max="120" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">注册</button>
+                </form>
+            </div>
+            
+            <!-- 消息提示 -->
+            <div id="message" class="message"></div>
+            
+            <!-- 加载动画 -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>处理中...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 切换表单显示
+        function showForm(formType) {
+            // 更新标签
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            if (formType === 'login') {
+                document.querySelector('.tab:nth-child(1)').classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+                document.getElementById('register-form').classList.remove('active');
+            } else {
+                document.querySelector('.tab:nth-child(2)').classList.add('active');
+                document.getElementById('login-form').classList.remove('active');
+                document.getElementById('register-form').classList.add('active');
+            }
+            
+            // 清空消息
+            hideMessage();
+        }
+        
+        // 显示消息
+        function showMessage(text, type) {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type}`;
+        }
+        
+        // 隐藏消息
+        function hideMessage() {
+            const messageEl = document.getElementById('message');
+            messageEl.className = 'message';
+        }
+        
+        // 显示加载
+        function showLoading() {
+            document.getElementById('loading').classList.add('active');
+        }
+        
+        // 隐藏加载
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('active');
+        }
+        
+        // 保存用户信息到本地存储
+        function saveUserInfo(userData) {
+            localStorage.setItem('mbti_user', JSON.stringify(userData));
+        }
+        
+        // 获取用户信息
+        function getUserInfo() {
+            const userStr = localStorage.getItem('mbti_user');
+            return userStr ? JSON.parse(userStr) : null;
+        }
+        
+        // 处理登录
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            
+            if (!username || !password) {
+                showMessage('请输入用户名和密码', 'error');
+                return;
+            }
+            
+            showLoading();
+            hideMessage();
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // 保存用户信息和token
+                    saveUserInfo({
+                        ...data,
+                        token: data.token
+                    });
+                    
+                    showMessage('登录成功！正在跳转...', 'success');
+                    
+                    // 2秒后跳转到测试页面
+                    setTimeout(() => {
+                        window.location.href = 'test.html';
+                    }, 2000);
+                } else {
+                    showMessage(data.message || '登录失败', 'error');
+                }
+            } catch (error) {
+                showMessage('网络错误，请检查服务器是否运行', 'error');
+                console.error('登录错误:', error);
+            } finally {
+                hideLoading();
+            }
+        });
+        
+        // 处理注册
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('register-username').value.trim();
+            const password = document.getElementById('register-password').value;
+            const nickname = document.getElementById('register-nickname').value.trim();
+            const gender = document.querySelector('input[name="gender"]:checked')?.value;
+            const age = document.getElementById('register-age').value;
+            
+            // 验证输入
+            if (!username || !password || !nickname || !gender || !age) {
+                showMessage('请填写所有必填字段', 'error');
+                return;
+            }
+            
+            if (age < 1 || age > 120) {
+                showMessage('年龄必须在1-120之间', 'error');
+                return;
+            }
+            
+            showLoading();
+            hideMessage();
+            
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        nickname: nickname,
+                        gender: gender,
+                        age: parseInt(age)
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // 保存用户信息和token
+                    saveUserInfo({
+                        ...data,
+                        token: data.token
+                    });
+                    
+                    showMessage('注册成功！正在跳转...', 'success');
+                    
+                    // 2秒后跳转到测试页面
+                    setTimeout(() => {
+                        window.location.href = 'test.html';
+                    }, 2000);
+                } else {
+                    showMessage(data.message || '注册失败', 'error');
+                }
+            } catch (error) {
+                showMessage('网络错误，请检查服务器是否运行', 'error');
+                console.error('注册错误:', error);
+            } finally {
+                hideLoading();
+            }
+        });
+        
+        // 页面加载时检查是否已登录
+        window.addEventListener('load', function() {
+            const userInfo = getUserInfo();
+            if (userInfo && userInfo.token) {
+                // 如果已登录，显示欢迎信息
+                document.getElementById('login-username').value = userInfo.username || '';
+                showMessage(`欢迎回来，${userInfo.nickname || userInfo.username}！`, 'success');
+                
+                // 3秒后自动跳转
+                setTimeout(() => {
+                    window.location.href = 'test.html';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

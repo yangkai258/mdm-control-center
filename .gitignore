@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Database
+*.db
+*.db.backup.*
+*.sqlite3
+
+# Node
+node_modules/
+
+# OpenClaw workspace internals
+.openclaw/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temp
+*.tmp
+*.log
