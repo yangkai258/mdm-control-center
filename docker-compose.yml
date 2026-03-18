@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  # PostgreSQL 主数据库
+  postgres:
+    image: postgres:15-alpine
+    container_name: mdm_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mdm_user
+      POSTGRES_PASSWORD: mdm_password
+      POSTGRES_DB: mdm_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - mdm_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mdm_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis 缓存（设备影子）
+  redis:
+    image: redis:7-alpine
+    container_name: mdm_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - mdm_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # EMQX MQTT Broker
+  emqx:
+    image: emqx/emqx:5.0-alpine
+    container_name: mdm_emqx
+    restart: unless-stopped
+    environment:
+      EMQX_NAME: mdm_emqx
+      EMQX_HOST: 127.0.0.1
+      EMQX_DASHBOARD__DEFAULT_USERNAME: admin
+      EMQX_DASHBOARD__DEFAULT_PASSWORD: public
+      EMQX_ALLOW_ANONYMOUS: "false"
+    volumes:
+      - emqx_data:/opt/emqx/data
+      - emqx_log:/opt/emqx/log
+    ports:
+      - "1883:1883"   # MQTT
+      - "8083:8083"   # WebSocket
+      - "18083:18083" # Dashboard
+    networks:
+      - mdm_network
+    healthcheck:
+      test: ["CMD", "emqx", "ctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MDM Backend (预留 Golang 服务)
+  mdm_backend:
+    image: golang:1.21-alpine
+    container_name: mdm_backend
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgres://mdm_user:mdm_password@postgres:5432/mdm_db?sslmode=disable
+      REDIS_URL: redis://redis:6379
+      MQTT_BROKER: mqtt://emqx:1883
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      emqx:
+        condition: service_healthy
+    networks:
+      - mdm_network
+
+  # MDM Frontend (Vue3 + Arco Design)
+  mdm_frontend:
+    image: nginx:alpine
+    container_name: mdm_frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html:ro
+      - ./frontend/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mdm_backend
+    networks:
+      - mdm_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  emqx_data:
+  emqx_log:
+
+networks:
+  mdm_network:
+    driver: bridge

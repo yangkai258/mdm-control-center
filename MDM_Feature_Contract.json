@@ -1,0 +1,222 @@
+# MDM 控制中台 - 功能逻辑对齐表
+# 由 agentcp 生成
+
+## 模块一：设备资产与生命周期管理
+
+### 1.1 设备注册接口
+```json
+{
+  "module": "device_asset",
+  "feature": "设备注册",
+  "endpoint": "/api/v1/devices/register",
+  "method": "POST",
+  "description": "新设备首次连网上报身份，完成注册",
+  "request": {
+    "device_id": "string (UUID, 必填)",
+    "mac_address": "string (MAC地址, 必填)",
+    "sn_code": "string (序列号, 必填)",
+    "hardware_model": "string (硬件型号, 必填)",
+    "firmware_version": "string (固件版本, 必填)"
+  },
+  "response": {
+    "success": {
+      "status": 200,
+      "body": {
+        "device_id": "string",
+        "lifecycle_status": 1,
+        "message": "设备注册成功"
+      }
+    },
+    "error": {
+      "status": 400,
+      "body": {
+        "error_code": "ERR_DEVICE_001",
+        "message": "设备ID或MAC地址已存在"
+      }
+    }
+  },
+  "precondition": "设备必须首次联网，未在系统中存在",
+  "business_logic": "校验UUID和MAC唯一性 -> 插入设备记录 -> 状态置为待激活(1)"
+}
+```
+
+### 1.2 用户绑定接口
+```json
+{
+  "module": "device_asset",
+  "feature": "用户扫码绑定",
+  "endpoint": "/api/v1/devices/{sn_code}/bind",
+  "method": "POST",
+  "description": "用户扫码绑定设备",
+  "request": {
+    "bind_user_id": "string (用户ID, 必填)"
+  },
+  "response": {
+    "success": {
+      "status": 200,
+      "body": {
+        "device_id": "string",
+        "bind_user_id": "string",
+        "lifecycle_status": 2,
+        "message": "绑定成功"
+      }
+    }
+  },
+  "precondition": "设备sn_code存在且lifecycle_status为1或2",
+  "business_logic": "校验sn_code -> 更新bind_user_id -> 状态改为服役中(2) -> 触发OpenClaw初始化"
+}
+```
+
+## 模块二：设备影子与状态监控
+
+### 2.1 心跳上报接口
+```json
+{
+  "module": "device_shadow",
+  "feature": "设备心跳上报",
+  "endpoint": "/api/v1/devices/{device_id}/heartbeat",
+  "method": "POST",
+  "description": "设备定期上报状态",
+  "request": {
+    "connection_status": "enum [online, offline, poor_network]",
+    "battery_level": "int (0-100)",
+    "charging_status": "boolean",
+    "current_mode": "enum [sleeping, roaming, listening, talking, idle]",
+    "rssi": "int"
+  },
+  "response": {
+    "success": {
+      "status": 200,
+      "body": {
+        "received": true,
+        "server_time": "ISO8601"
+      }
+    }
+  },
+  "precondition": "设备已注册且已绑定用户",
+  "business_logic": "更新Redis缓存 -> 更新PostgreSQL影子表 -> 检查离线超时(90秒)"
+}
+```
+
+### 2.2 状态查询接口
+```json
+{
+  "module": "device_shadow",
+  "feature": "查询设备状态",
+  "endpoint": "/api/v1/devices/{device_id}/status",
+  "method": "GET",
+  "description": "OpenClaw查询设备当前状态",
+  "response": {
+    "status": 200,
+    "body": {
+      "device_id": "string",
+      "is_online": "boolean",
+      "battery_level": "int",
+      "current_mode": "string",
+      "last_heartbeat": "ISO8601",
+      "desired_config": "JSON"
+    }
+  },
+  "precondition": "设备已注册",
+  "business_logic": "从Redis查询 -> 无则查PostgreSQL -> 返回JSON"
+}
+```
+
+## 模块三：OTA 固件升级
+
+### 3.1 固件包查询
+```json
+{
+  "module": "ota",
+  "feature": "查询可用固件",
+  "endpoint": "/api/v1/ota/check",
+  "method": "GET",
+  "description": "设备查询是否有新固件",
+  "request": {
+    "device_id": "string",
+    "current_version": "string"
+  },
+  "response": {
+    "has_update": true,
+    "package": {
+      "version_code": "string",
+      "bin_url": "string",
+      "md5_hash": "string",
+      "is_mandatory": "boolean",
+      "release_notes": "string"
+    }
+  }
+}
+```
+
+### 3.2 固件发布任务
+```json
+{
+  "module": "ota",
+  "feature": "创建发布任务",
+  "endpoint": "/api/v1/ota/deploy",
+  "method": "POST",
+  "admin_required": true,
+  "request": {
+    "package_id": "int",
+    "rollout_strategy": "enum [full, percentage, whitelist]",
+    "target_devices": "array (可选)"
+  }
+}
+```
+
+## 模块四：宠物设定
+
+### 4.1 获取宠物配置
+```json
+{
+  "module": "pet_config",
+  "feature": "获取宠物配置",
+  "endpoint": "/api/v1/pets/{device_id}/config",
+  "method": "GET",
+  "description": "OpenClaw生成Prompt时调用",
+  "response": {
+    "pet_name": "string",
+    "personality": "string",
+    "interaction_freq": "string",
+    "dnd_start_time": "time",
+    "dnd_end_time": "time",
+    "custom_rules": "JSON"
+  }
+}
+```
+
+### 4.2 更新宠物配置
+```json
+{
+  "module": "pet_config",
+  "feature": "更新宠物配置",
+  "endpoint": "/api/v1/pets/{device_id}/config",
+  "method": "PUT",
+  "request": {
+    "pet_name": "string (可选)",
+    "personality": "string (可选)",
+    "dnd_start_time": "time (可选)",
+    "dnd_end_time": "time (可选)"
+  }
+}
+```
+
+---
+
+## 测试要点清单 (给 agentcs)
+
+### 高优先级测试
+1. **设备注册**：重复注册、非法UUID、MAC格式校验
+2. **心跳上报**：超时离线判定(90秒)、电池边界值(0,100,101)
+3. **状态查询**：离线设备查询、空设备ID
+4. **用户绑定**：重复绑定、解绑、非法sn_code
+5. **OTA升级**：版本回退、强制升级忽略
+
+### 性能测试
+- 10000设备并发心跳，响应时间<200ms
+- Redis缓存击穿场景
+
+### 安全测试
+- 未授权Token访问设备数据
+- SQL注入、JSONB解析异常

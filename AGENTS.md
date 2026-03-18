@@ -52,6 +52,49 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - `trash` > `rm` (recoverable beats gone forever)
 - When in doubt, ask.
 
+## 🚦 Quality Gate Protocol (质量门禁协议)
+
+作为主Agent，你需要管理agent团队的协作流程。当agenthd或agentqd提交代码后，必须经过以下质量门禁：
+
+### 开发流程
+```
+开发完成：agenthd/qd 提交代码
+    ↓
+状态设为：Pending Review
+    ↓
+强制审计：自动唤醒 agentcs 运行测试套件
+    ↓
+若 agentcs 报告 Fail → 自动 @开发Agent并附带错误日志，任务打回
+    ↓
+若 agentcs 报告 Pass → 自动唤醒 agentyw 执行部署
+```
+
+### 协作效能公式
+$$E = \frac{Dev\_Time}{Test\_Cycles + Fix\_Time}$$
+
+如果 $E$ 指标下降，说明 agentcp 的需求写得不够细，导致 agentcs 频繁打回后端代码。
+
+---
+
+## 🚀 Proactive Agent 模式 (已启用)
+
+基于 proactive-agent-skill，我们启用了以下主动式工作模式：
+
+### WAL Protocol (预写日志)
+- **SESSION-STATE.md** - 当前任务工作状态
+- **working-buffer.md** - 危险区日志，防止丢失关键上下文
+- **memory/** - 每日工作日志
+
+### Heartbeat Checks (心跳检查)
+- 每30分钟检查团队任务状态
+- 预判用户下一步需求
+- 自动建议相关操作
+
+### 主动行为
+- 检测用户请求模式
+- 提前准备可能的需要的资源
+- 自动化重复任务
+
 ## External vs Internal
 
 **Safe to do freely:**
