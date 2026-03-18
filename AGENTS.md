@@ -85,15 +85,16 @@ $$E = \frac{Dev\_Time}{Test\_Cycles + Fix\_Time}$$
 - **working-buffer.md** - 危险区日志，防止丢失关键上下文
 - **memory/** - 每日工作日志
 
-### Heartbeat Checks (心跳检查)
-- 每30分钟检查团队任务状态
-- 预判用户下一步需求
-- 自动建议相关操作
+### 项目管理原则
 
-### 主动行为
-- 检测用户请求模式
-- 提前准备可能的需要的资源
-- 自动化重复任务
+**重要：两个项目必须完全隔离**
+
+| 项目 | 目录 | GitHub |
+|------|------|--------|
+| MBTI测试 | mbti-project/ | mbti-web |
+| MDM控制中台 | mdm-project/ | mdm-control-center |
+
+每个项目的文件必须存放在各自目录，禁止混放。
 
 ## External vs Internal
 
