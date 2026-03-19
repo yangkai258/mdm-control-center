@@ -4,6 +4,114 @@
     "proactive-agent-skill": {
       "version": "1.0.0",
       "installedAt": 1773846961857
+    },
+    "product-manager": {
+      "version": "1.0.0",
+      "installedAt": 1773934381001
+    },
+    "agent-orchestrate": {
+      "version": "1.0.0",
+      "installedAt": 1773934387962
+    },
+    "requirements-analysis": {
+      "version": "1.0.0",
+      "installedAt": 1773934394919
+    },
+    "agent-task-tracker": {
+      "version": "1.1.0",
+      "installedAt": 1773934561935
+    },
+    "memory-setup": {
+      "version": "1.0.0",
+      "installedAt": 1773934570886
+    },
+    "task-development-workflow": {
+      "version": "1.0.0",
+      "installedAt": 1773934583683
+    },
+    "team-status-tracker": {
+      "version": "1.0.3",
+      "installedAt": 1773934622763
+    },
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1773934803385
+    },
+    "self-monitor": {
+      "version": "1.0.1",
+      "installedAt": 1773934811369
+    },
+    "capability-evolver": {
+      "version": "1.32.2",
+      "installedAt": 1773935078382
+    },
+    "evolver": {
+      "version": "1.32.2",
+      "installedAt": 1773935165812
+    },
+    "find-skills-skill": {
+      "version": "1.0.0",
+      "installedAt": 1773936053351
+    },
+    "runesleo-systematic-debugging": {
+      "version": "3.0.0",
+      "installedAt": 1773936225852
+    },
+    "frontend-design-3": {
+      "version": "0.1.0",
+      "installedAt": 1773936301739
+    },
+    "ui-ux-design": {
+      "version": "1.0.0",
+      "installedAt": 1773936322573
+    },
+    "brainstorming": {
+      "version": "0.1.0",
+      "installedAt": 1773936499951
+    },
+    "system-architect": {
+      "version": "1.0.0",
+      "installedAt": 1773936831187
+    },
+    "architecture-designer": {
+      "version": "0.1.0",
+      "installedAt": 1773936844195
+    },
+    "test-master": {
+      "version": "0.1.0",
+      "installedAt": 1773936862348
+    },
+    "afrexai-qa-testing-engine": {
+      "version": "1.0.0",
+      "installedAt": 1773936869214
+    },
+    "vue-expert": {
+      "version": "0.1.0",
+      "installedAt": 1773936902376
+    },
+    "api-dev": {
+      "version": "1.0.0",
+      "installedAt": 1773936909966
+    },
+    "docker-essentials": {
+      "version": "1.0.0",
+      "installedAt": 1773936961375
+    },
+    "jtbd-analyzer": {
+      "version": "1.0.0",
+      "installedAt": 1773936968931
+    },
+    "frontend-design-ultimate": {
+      "version": "1.0.0",
+      "installedAt": 1773937023926
+    },
+    "devops-automation-pack": {
+      "version": "1.0.0",
+      "installedAt": 1773937082159
+    },
+    "go": {
+      "version": "1.0.2",
+      "installedAt": 1773937144324
     }
   }
 }
