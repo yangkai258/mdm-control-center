@@ -1,0 +1,43 @@
+## 十三、基础管理（档案/调度/菜单/日志/字典等）
+
+> **功能路径**：/system 模块
+> **权限要求**：租户管理员（tenant_admin）
+> **套餐要求**：基础版及以上
+
+### 13.1 基础档案
+
+#### 13.1.1 功能描述
+
+基础档案用于管理企业的通用业务档案数据，支持树形层级结构和标准 CRUD 操作。档案类型由管理员自定义，每种档案可维护独立的字段结构。
+
+#### 13.1.2 实体字段
+
+**档案分类表（archive_category）**：
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| category_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| category_name | VARCHAR(50) | 分类名称 |
+| category_code | VARCHAR(30) | 分类编码（唯一） |
+| parent_id | UUID | 上级分类（NULL表示根） |
+| icon | VARCHAR(50) | 图标 |
+| sort_order | INT | 排序 |
+| field_schema | JSONB | 字段定义 JSON Schema |
+| status | ENUM | active / disabled |
+| created_at | TIMESTAMPTZ | 创建时间 |
+
+**档案数据表（archive_record）**：
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| record_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| category_id | UUID | 档案分类 |
+| parent_id | UUID | 上级档案（树形） |
+| record_code | VARCHAR(50) | 档案编码 |
+| record_name | VARCHAR(100) | 档案名称 |
+| data | JSONB | 档案数据（动态字段） |
+| status | ENUM | active / disabled |
+| created_at | TIMESTAMPTZ | 创建时间 |
+| updated_at | TIMESTAMPTZ | 更新时间 |

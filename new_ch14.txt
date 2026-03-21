@@ -1,0 +1,253 @@
+---
+
+## 十四、低代码CRUD
+
+> **功能路径**：`/lowcode` 模块
+> **权限要求**：租户管理员（tenant_admin）
+> **套餐要求**：专业版及以上
+
+### 14.1 标准CRUD
+
+#### 14.1.1 功能描述
+通用 CRUD 生成器，通过配置数据模型自动生成标准列表页、详情页、表单页和对应 API。
+
+#### 14.1.2 数据表
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| model_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| model_name | VARCHAR(50) | 模型名称 |
+| model_code | VARCHAR(30) | 模型编码（英文，唯一） |
+| table_name | VARCHAR(50) | 对应数据库表名 |
+| fields | JSONB | 字段定义数组 |
+| list_config | JSONB | 列表页配置 |
+| form_config | JSONB | 表单页配置 |
+| api_config | JSONB | API 配置 |
+| status | ENUM | draft / generated / published |
+| created_at | TIMESTAMPTZ | 创建时间 |
+
+#### 14.1.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/models` | 模型列表 |
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/models` | 创建数据模型 |
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/models/{id}` | 模型详情 |
+| PUT | `/api/v1/tenants/{tenant_id}/lowcode/models/{id}` | 更新模型 |
+| DELETE | `/api/v1/tenants/{tenant_id}/lowcode/models/{id}` | 删除模型 |
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/models/{id}/generate` | 生成 CRUD 代码 |
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/models/{id}/preview` | 预览生成结果 |
+
+#### 14.1.4 按钮定义
+**页面路径**: `/lowcode/models`
+**布局**: 列表页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「搜索」 | 展开筛选面板 | all |
+| 操作栏（右） | 「刷新」 | 刷新列表 | all |
+| 操作栏（右） | 「新建模型」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「编辑」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「生成代码」 | 确认弹窗后生成 | tenant_admin |
+| 表格行 | 「预览」 | 打开抽屉 | tenant_admin |
+| 表格行 | 「删除」 | 删除确认弹窗 | tenant_admin |
+
+### 14.2 注册报表功能
+
+#### 14.2.1 功能描述
+将低代码生成的模型注册为报表功能，供数据分析模块调用。
+
+#### 14.2.2 数据表
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| report_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| model_id | UUID | 关联数据模型 |
+| report_name | VARCHAR(50) | 报表名称 |
+| report_code | VARCHAR(30) | 报表编码 |
+| chart_type | ENUM | table / line / bar / pie |
+| dimensions | VARCHAR[] | 维度字段 |
+| metrics | VARCHAR[] | 指标字段 |
+| status | ENUM | active / disabled |
+| created_at | TIMESTAMPTZ | 创建时间 |
+
+#### 14.2.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/reports` | 报表列表 |
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/reports` | 注册报表 |
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/reports/{id}` | 报表详情 |
+| PUT | `/api/v1/tenants/{tenant_id}/lowcode/reports/{id}` | 更新报表配置 |
+| DELETE | `/api/v1/tenants/{tenant_id}/lowcode/reports/{id}` | 删除报表 |
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/reports/{id}/data` | 获取报表数据 |
+
+#### 14.2.4 按钮定义
+**页面路径**: `/lowcode/reports`
+**布局**: 列表页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「搜索」 | 展开筛选面板 | all |
+| 操作栏（右） | 「刷新」 | 刷新列表 | all |
+| 操作栏（右） | 「注册报表」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「编辑」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「数据」 | 路由跳转数据页 | tenant_admin |
+| 表格行 | 「删除」 | 删除确认弹窗 | tenant_admin |
+
+### 14.3 树表格CRUD
+
+#### 14.3.1 功能描述
+支持树形层级数据的 CRUD，适用于组织架构、商品分类等层级数据管理。
+
+#### 14.3.2 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/tree/{model_code}` | 获取树形列表 |
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/tree/{model_code}` | 新增树节点 |
+| PUT | `/api/v1/tenants/{tenant_id}/lowcode/tree/{model_code}/{id}` | 更新树节点 |
+| DELETE | `/api/v1/tenants/{tenant_id}/lowcode/tree/{model_code}/{id}` | 删除树节点 |
+
+#### 14.3.3 按钮定义
+**页面路径**: `/lowcode/tree/{model_code}`
+**布局**: 树形列表页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「搜索」 | 展开筛选面板 | all |
+| 操作栏（右） | 「刷新」 | 刷新列表 | all |
+| 操作栏（右） | 「新增」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「编辑」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「删除」 | 删除确认弹窗 | tenant_admin |
+| 表格行 | 「新增子节点」 | 打开全屏模态 | tenant_admin |
+
+### 14.4 标准CRUD追加子表
+
+#### 14.4.1 功能描述
+主子表模式，在标准 CRUD 基础上追加明细子表，支持一对多数据关联。
+
+#### 14.4.2 数据表
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| relation_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| master_model_id | UUID | 主表模型 |
+| detail_model_id | UUID | 子表模型 |
+| relation_type | ENUM | one_to_many / many_to_many |
+| foreign_key | VARCHAR(50) | 外键字段名 |
+| cascade_delete | BOOLEAN | 级联删除 |
+| created_at | TIMESTAMPTZ | 创建时间 |
+
+#### 14.4.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/relations` | 关联列表 |
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/relations` | 创建关联 |
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/relations/{id}` | 关联详情 |
+| PUT | `/api/v1/tenants/{tenant_id}/lowcode/relations/{id}` | 更新关联 |
+| DELETE | `/api/v1/tenants/{tenant_id}/lowcode/relations/{id}` | 删除关联 |
+
+#### 14.4.4 按钮定义
+**页面路径**: `/lowcode/relations`
+**布局**: 列表页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「搜索」 | 展开筛选面板 | all |
+| 操作栏（右） | 「刷新」 | 刷新列表 | all |
+| 操作栏（右） | 「新建关联」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「编辑」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「删除」 | 删除确认弹窗 | tenant_admin |
+
+### 14.5 测试Post请求
+
+#### 14.5.1 功能描述
+API 测试工具，支持发送 POST 请求并查看响应结果。
+
+#### 14.5.2 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/test/post` | 发送 POST 测试请求 |
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/test/history` | 测试历史记录 |
+
+#### 14.5.3 按钮定义
+**页面路径**: `/lowcode/api-tester`
+**布局**: 表单页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（右） | 「发送」 | 发送请求并显示响应 | all |
+| 操作栏（右） | 「清空」 | 清空表单 | all |
+
+### 14.6 会话管理
+
+#### 14.6.1 功能描述
+查看当前用户的登录会话，支持强制下线。
+
+#### 14.6.2 数据表
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| session_id | UUID | 会话ID |
+| user_id | UUID | 用户ID |
+| device_info | VARCHAR(200) | 设备信息 |
+| ip_address | VARCHAR(50) | IP 地址 |
+| created_at | TIMESTAMPTZ | 登录时间 |
+| expires_at | TIMESTAMPTZ | 过期时间 |
+| is_current | BOOLEAN | 是否当前会话 |
+
+#### 14.6.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/sessions` | 会话列表 |
+| DELETE | `/api/v1/tenants/{tenant_id}/sessions/{id}` | 强制下线 |
+
+#### 14.6.4 按钮定义
+**页面路径**: `/lowcode/sessions`
+**布局**: 列表页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「刷新」 | 刷新列表 | all |
+| 表格行 | 「强制下线」 | 确认弹窗 | all |
+
+### 14.7 单据类CRUD
+
+#### 14.7.1 功能描述
+单据流程模式，在 CRUD 基础上关联审批流程，支持单据的提交、审批、归档全生命周期管理。
+
+#### 14.7.2 数据表
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| doc_type_id | UUID | 单据类型主键 |
+| tenant_id | UUID | 所属租户 |
+| doc_type_name | VARCHAR(50) | 单据类型名称 |
+| doc_type_code | VARCHAR(30) | 单据类型编码 |
+| model_id | UUID | 关联数据模型 |
+| process_def_id | UUID | 关联审批流程 |
+| doc_prefix | VARCHAR(10) | 单据号前缀 |
+| doc_sequence | INT | 当前序号 |
+| status | ENUM | active / disabled |
+| created_at | TIMESTAMPTZ | 创建时间 |
+
+#### 14.7.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/doc-types` | 单据类型列表 |
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/doc-types` | 创建单据类型 |
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/doc-types/{id}` | 单据类型详情 |
+| PUT | `/api/v1/tenants/{tenant_id}/lowcode/doc-types/{id}` | 更新单据类型 |
+| DELETE | `/api/v1/tenants/{tenant_id}/lowcode/doc-types/{id}` | 删除单据类型 |
+| POST | `/api/v1/tenants/{tenant_id}/lowcode/docs/{type_code}` | 提交单据 |
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/docs/{type_code}` | 单据列表 |
+| GET | `/api/v1/tenants/{tenant_id}/lowcode/docs/{type_code}/{id}` | 单据详情 |
+
+#### 14.7.4 按钮定义
+**页面路径**: `/lowcode/doc-types`
+**布局**: 列表页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「搜索」 | 展开筛选面板 | all |
+| 操作栏（右） | 「刷新」 | 刷新列表 | all |
+| 操作栏（右） | 「新建单据类型」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「编辑」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「删除」 | 删除确认弹窗 | tenant_admin |
+| 表格行 | 「单据」 | 路由跳转单据列表 | all |

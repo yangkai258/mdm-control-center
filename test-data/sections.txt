@@ -1,0 +1,25 @@
+=== MODULE_DEVICE_SHADOW.md ===
+  Line 380: ## 九、当前实现状态
+  Line 393: ## 十、关键问题
+  Line 404: ## 十一、修订记录
+
+=== MODULE_OTA_UPDATES.md ===
+  Line 513: ## 七、验收标准
+  Line 538: ## 八、当前实现状态
+  Line 552: ## 九、修订记录
+
+=== MODULE_MEMBER_MANAGEMENT.md ===
+  Line 475: ## 六、验收标准
+  Line 507: ## 七、当前实现状态
+  Line 524: ## 八、修订记录
+
+=== MODULE_ALERT_SYSTEM.md ===
+  Line 373: ## 七、验收标准
+  Line 405: ## 八、当前实现状态
+  Line 419: ## 九、修订记录
+
+=== MODULE_ORGANIZATION.md ===
+  Line 573: ## 七、验收标准
+  Line 602: ## 八、当前实现状态
+  Line 617: ## 九、修订记录
+

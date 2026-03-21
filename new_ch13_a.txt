@@ -1,0 +1,207 @@
+## 十三、基础管理（档案/调度/菜单/日志/字典等）
+
+> **功能路径**：`/system` 模块
+> **权限要求**：租户管理员（tenant_admin）
+> **套餐要求**：基础版及以上
+
+### 13.1 基础档案
+
+#### 13.1.1 功能描述
+基础档案用于管理企业的通用业务档案数据，支持树形层级结构和标准 CRUD 操作。档案类型由管理员自定义，每种档案可维护独立的字段结构。
+
+#### 13.1.2 数据表
+档案分类表（archive_category）：
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| category_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| category_name | VARCHAR(50) | 分类名称 |
+| category_code | VARCHAR(30) | 分类编码（唯一） |
+| parent_id | UUID | 上级分类（NULL表示根） |
+| icon | VARCHAR(50) | 图标 |
+| sort_order | INT | 排序 |
+| field_schema | JSONB | 字段定义 JSON Schema |
+| status | ENUM | active / disabled |
+| created_at | TIMESTAMPTZ | 创建时间 |
+
+档案数据表（archive_record）：
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| record_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| category_id | UUID | 档案分类 |
+| parent_id | UUID | 上级档案（树形） |
+| record_code | VARCHAR(50) | 档案编码 |
+| record_name | VARCHAR(100) | 档案名称 |
+| data | JSONB | 档案数据（动态字段） |
+| status | ENUM | active / disabled |
+| created_at | TIMESTAMPTZ | 创建时间 |
+| updated_at | TIMESTAMPTZ | 更新时间 |
+
+#### 13.1.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/archives/categories` | 获取档案分类树 |
+| POST | `/api/v1/tenants/{tenant_id}/archives/categories` | 新建档案分类 |
+| PUT | `/api/v1/tenants/{tenant_id}/archives/categories/{id}` | 更新档案分类 |
+| DELETE | `/api/v1/tenants/{tenant_id}/archives/categories/{id}` | 删除档案分类 |
+| GET | `/api/v1/tenants/{tenant_id}/archives/records` | 档案数据列表（分页+树形） |
+| POST | `/api/v1/tenants/{tenant_id}/archives/records` | 新建档案数据 |
+| GET | `/api/v1/tenants/{tenant_id}/archives/records/{id}` | 档案数据详情 |
+| PUT | `/api/v1/tenants/{tenant_id}/archives/records/{id}` | 更新档案数据 |
+| DELETE | `/api/v1/tenants/{tenant_id}/archives/records/{id}` | 删除档案数据 |
+
+#### 13.1.4 按钮定义
+**页面路径**: `/system/archives`
+**布局**: 左侧树 + 右侧列表
+
+**按钮定义**:
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「搜索」 | 展开筛选面板 | all |
+| 操作栏（右） | 「刷新」 | 刷新列表 | all |
+| 操作栏（右） | 「新建档案」 | 打开全屏模态 | tenant_admin |
+| 操作栏（右） | 「新建分类」 | 打开抽屉 | tenant_admin |
+| 表格行 | 「编辑」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「删除」 | 删除确认弹窗 | tenant_admin |
+
+### 13.2 调度计划
+
+#### 13.2.1 功能描述
+调度计划管理 Cron 定时任务，支持可视化配置执行周期、任务脚本和告警规则。
+
+#### 13.2.2 数据表
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| job_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| job_name | VARCHAR(100) | 任务名称 |
+| job_code | VARCHAR(50) | 任务编码（唯一） |
+| job_type | ENUM | http / script / mq |
+| cron_expression | VARCHAR(50) | Cron 表达式 |
+| endpoint | VARCHAR(500) | HTTP 接口地址（HTTP类型） |
+| script_content | TEXT | 脚本内容（Script类型） |
+| params | JSONB | 任务参数 |
+| timeout_seconds | INT | 超时时间（秒） |
+| retry_count | INT | 重试次数 |
+| status | ENUM | active / paused / stopped |
+| last_run_at | TIMESTAMPTZ | 上次执行时间 |
+| last_run_status | ENUM | success / failed / running |
+| next_run_at | TIMESTAMPTZ | 下次执行时间 |
+| created_at | TIMESTAMPTZ | 创建时间 |
+
+#### 13.2.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/jobs` | 任务列表 |
+| POST | `/api/v1/tenants/{tenant_id}/jobs` | 创建任务 |
+| GET | `/api/v1/tenants/{tenant_id}/jobs/{id}` | 任务详情 |
+| PUT | `/api/v1/tenants/{tenant_id}/jobs/{id}` | 更新任务 |
+| DELETE | `/api/v1/tenants/{tenant_id}/jobs/{id}` | 删除任务 |
+| POST | `/api/v1/tenants/{tenant_id}/jobs/{id}/execute` | 手动执行一次 |
+| PUT | `/api/v1/tenants/{tenant_id}/jobs/{id}/pause` | 暂停任务 |
+| PUT | `/api/v1/tenants/{tenant_id}/jobs/{id}/resume` | 恢复任务 |
+| GET | `/api/v1/tenants/{tenant_id}/jobs/{id}/logs` | 执行日志 |
+| GET | `/api/v1/tenants/{tenant_id}/jobs/cron/validate` | 验证 Cron 表达式 |
+
+#### 13.2.4 按钮定义
+**页面路径**: `/system/scheduler`
+**布局**: 列表页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「搜索」 | 展开筛选面板 | all |
+| 操作栏（右） | 「刷新」 | 刷新列表 | all |
+| 操作栏（右） | 「新建任务」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「编辑」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「立即执行」 | 确认弹窗 | tenant_admin |
+| 表格行 | 「暂停」 | 确认弹窗 | tenant_admin |
+| 表格行 | 「删除」 | 删除确认弹窗 | tenant_admin |
+| 表格行 | 「日志」 | 路由跳转日志页 | all |
+
+### 13.3 菜单设置
+
+#### 13.3.1 功能描述
+前端动态菜单管理，支持租户自定义菜单结构、图标、路由和权限标识。
+
+#### 13.3.2 数据表
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| menu_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户（NULL表示平台级） |
+| parent_id | UUID | 上级菜单（NULL表示根） |
+| menu_name | VARCHAR(50) | 菜单名称 |
+| menu_code | VARCHAR(50) | 菜单编码 |
+| path | VARCHAR(200) | 路由路径 |
+| component | VARCHAR(200) | 组件路径 |
+| icon | VARCHAR(50) | 图标 |
+| sort_order | INT | 排序 |
+| visible | BOOLEAN | 是否显示 |
+| status | ENUM | active / disabled |
+| permission | VARCHAR(50) | 权限标识 |
+| created_at | TIMESTAMPTZ | 创建时间 |
+
+#### 13.3.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/menus` | 获取菜单树 |
+| POST | `/api/v1/tenants/{tenant_id}/menus` | 新建菜单 |
+| GET | `/api/v1/tenants/{tenant_id}/menus/{id}` | 菜单详情 |
+| PUT | `/api/v1/tenants/{tenant_id}/menus/{id}` | 更新菜单 |
+| DELETE | `/api/v1/tenants/{tenant_id}/menus/{id}` | 删除菜单 |
+| PUT | `/api/v1/tenants/{tenant_id}/menus/reorder` | 批量排序 |
+
+#### 13.3.4 按钮定义
+**页面路径**: `/system/menus`
+**布局**: 左侧树 + 右侧表单
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「刷新」 | 刷新树 | all |
+| 操作栏（右） | 「新增菜单」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「编辑」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「新增子菜单」 | 打开全屏模态 | tenant_admin |
+| 表格行 | 「删除」 | 删除确认弹窗 | tenant_admin |
+
+### 13.4 业务日志
+
+#### 13.4.1 功能描述
+业务操作日志记录和查询，支持按时间、模块、操作人等维度筛选和导出。
+
+#### 13.4.2 数据表
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| log_id | UUID | 主键 |
+| tenant_id | UUID | 所属租户 |
+| user_id | UUID | 操作用户 |
+| user_name | VARCHAR(50) | 操作用户名（冗余） |
+| module | VARCHAR(50) | 操作模块 |
+| action | VARCHAR(50) | 操作动作（create/update/delete） |
+| resource_type | VARCHAR(50) | 资源类型 |
+| resource_id | UUID | 资源ID |
+| detail | JSONB | 操作详情（旧值/新值） |
+| ip_address | VARCHAR(50) | IP 地址 |
+| user_agent | VARCHAR(200) | 浏览器标识 |
+| created_at | TIMESTAMPTZ | 操作时间 |
+
+#### 13.4.3 API接口
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/v1/tenants/{tenant_id}/logs` | 日志列表（分页+筛选） |
+| GET | `/api/v1/tenants/{tenant_id}/logs/{id}` | 日志详情 |
+| GET | `/api/v1/tenants/{tenant_id}/logs/statistics` | 日志统计 |
+| POST | `/api/v1/tenants/{tenant_id}/logs/export` | 导出日志（异步） |
+
+#### 13.4.4 按钮定义
+**页面路径**: `/system/audit-logs`
+**布局**: 列表页
+
+| 位置 | 按钮名称 | 动作 | 权限 |
+|------|----------|------|------|
+| 操作栏（左） | 「搜索」 | 展开筛选面板 | all |
+| 操作栏（左） | 「时间范围」 | 日期范围选择器 | all |
+| 操作栏（右） | 「导出」 | 导出Excel | tenant_admin |
+| 操作栏（右） | 「刷新」 | 刷新列表 | all |
+| 表格行 | 「详情」 | 打开抽屉 | all |
