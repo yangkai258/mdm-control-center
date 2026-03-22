@@ -188,6 +188,156 @@ zg（架构师）+ agentcp 联合评审
 
 ---
 
+## 2026-03-22 仓库事故分析报告
+
+### 事件概要
+
+**日期**: 2026-03-22
+**影响**: 后端编译失败，新功能代码丢失
+**损失**: 具身智能/家庭模式/寻回网络/仿真测试后端代码 (~4小时工作量)
+
+---
+
+### 问题根因分析
+
+#### 1. Git 推送冲突（直接原因）
+
+**现象**:
+- 多个 Agent 同时 push 到 master 分支
+- `git push` 被拒绝: `! [rejected] master -> master (fetch first)`
+- `git pull --rebase` 产生大量冲突
+
+**根因**:
+- 5个后端 Agent 并行运行，都试图 push 到同一分支
+- 没有 Agent 间的协调机制
+- 推送失败后未及时重试或合并
+
+#### 2. 代码结构冲突（技术债务）
+
+**重复类型定义**:
+| 类型 | 文件A | 文件B |
+|------|-------|-------|
+| StringArray | data_permission.go | common_types.go (不存在) |
+| JSONMap | data_permission.go | 不存在 |
+| NotificationChannel | notification_channel.go | alert_settings.go |
+
+**引用不存在的模型**:
+- `EmailTemplate` - service 引用但从未创建
+- `AlertRule` - controller 引用但模型定义不匹配
+- `BatchTask` - controller 引用但模型不存在
+
+**结构体字段不匹配**:
+- `AlertRuleCreateRequest` 字段与 `AlertRule` 模型不匹配
+- controller 使用 `Name`, `Enabled` 等字段，但模型使用 `RuleName`, `Enabled *bool`
+
+#### 3. 并行开发失控（流程问题）
+
+**问题**:
+- 5个 Agent 同时开发，修改相同目录下的文件
+- 没有文件锁或任务分配机制
+- 没有"编译通过后再开发下一个"的检查点
+
+**典型场景**:
+```
+Agent A: 修改 pet.go → 添加 JSON 类型
+Agent B: 修改 webhook.go → 同样使用 JSON 类型
+Agent C: 删除 notification_channel.go → 导致 AlertSettings 引用失败
+```
+
+---
+
+### 解决方案
+
+#### 立即修复（2026-03-22）
+
+1. **重新克隆仓库**
+   ```bash
+   git clone https://github.com/yangkai258/mdm-iot-platform.git --no-reject-shallow
+   ```
+
+2. **删除重复文件**
+   - `models/notification_channel.go` (与 alert_settings.go 重复)
+   - `models/data_permission.go` (移除自定义 StringArray/JSONMap)
+
+3. **创建缺失模型**
+   - `models/email_template.go`
+   - `models/common_types.go` (统一 JSON/StringArray 类型)
+
+4. **修复类型别名**
+   - `AlertRule` 从 `DeviceAlertRule` 改为独立结构体
+   - `AlertRuleCreateRequest` 添加缺失字段
+
+#### 根本解决
+
+1. **引入 Agent 任务分配机制**
+   - 每个 Agent 独立子目录，避免文件冲突
+   - 或使用 Git 分支，每个 Agent 独立分支后合并
+
+2. **编译检查强制化**
+   - 每个 Agent 完成后必须 `go build ./...` 通过
+   - 失败则不 commit，不允许推进
+
+3. **代码审查前移**
+   - PRD 评审后，架构师分配任务时指定文件范围
+   - 避免多 Agent 修改同一文件
+
+---
+
+### 预防措施
+
+#### 流程层面
+
+| 规则 | 说明 |
+|------|------|
+| **任务分配文档化** | 每个 Agent 开始前，架构师写入 `SESSION_SNAPSHOT.md`，明确分配的文件 |
+| **编译门禁** | Agent 完成后必须编译通过才能提交，否则自动打回 |
+| **串行化推送** | 同一时刻只允许一个 Agent push，其他等待 |
+| **小任务原则** | 单个任务不超过 30 分钟，避免长时间运行后的冲突累积 |
+
+#### 技术层面
+
+| 规则 | 说明 |
+|------|------|
+| **禁止重复类型** | 在 `common_types.go` 统一定义，所有模型引用它 |
+| **禁止跨 Agent 修改同一文件** | 架构师分配文件范围，Agent 只在自己范围内工作 |
+| **模型变更通知** | 如果一个 Agent 创建/修改了模型，其他 Agent 需要同步更新 |
+| **Git 状态检查** | Agent 开始前 `git status`，如果本地有未提交的更改，先 stash |
+
+#### 监控层面
+
+| 规则 | 说明 |
+|------|------|
+| **心跳状态上报** | Agent 每 5 分钟上报文件修改列表 |
+| **超时强制终止** | 运行超过 30 分钟的 Agent，自动检查是否卡住 |
+| **冲突预警** | 检测到 git push 失败超过 2 次，触发人工干预 |
+
+---
+
+### 教训总结
+
+1. **并行 ≠ 随意** - 多 Agent 并行需要更严格的协调机制
+2. **编译通过 ≠ 能合并** - 单独的编译通过不代表代码能整合
+3. **Push 失败是预警** - 任何 push 失败都应立即处理，而非忽略
+4. **代码库健康度** - 应该每天检查一次编译状态，而非等到问题爆发
+
+---
+
+### 今日代码损失清单
+
+| 功能 | 状态 | 原因 |
+|------|------|------|
+| JWT init panic 修复 | ✅ 已恢复 | 提交到了 master |
+| 具身智能 API | ❌ 丢失 | push 失败，本地丢失 |
+| 家庭模式 API | ❌ 丢失 | push 失败，本地丢失 |
+| 寻回网络 API | ❌ 丢失 | push 失败，本地丢失 |
+| 仿真测试 API | ❌ 丢失 | push 失败，本地丢失 |
+| 前端页面 | ✅ 已推送 | 成功推送到 master |
+| 产品路线图 V3 | ✅ 已推送 | 成功推送到 master |
+
+**下次行动**: 如需恢复这些功能，从 Agent 的 sessions_history 中提取代码，重新开发。
+
+---
+
 _持续更新，记录项目的成长轨迹。_
 
 ## 2026-03-22 Sprint 1-7 全部完成
@@ -261,6 +411,89 @@ _持续更新，记录项目的成长轨迹。_
 - 建立功能清单核对机制
 
 ---
+
+## 2026-03-22 下午更新 - Sprint 21-32 全部完成
+
+### Sprint 21-26 完成
+| Sprint | 内容 | 状态 |
+|--------|------|------|
+| Sprint 21 | 内容生态（表情包/动作市场/声音定制） | ✅ |
+| Sprint 22 | 移动端（App/微信小程序） | ✅ |
+| Sprint 23 | 第三方集成（智能家居/医疗/电商） | ✅ |
+| Sprint 24 | 研究平台（数据集/AI实验） | ✅ |
+| Sprint 25 | 安全与合规（加密/脱敏/GDPR） | ✅ |
+| Sprint 26 | 技术架构（端侧推理/BLE Mesh/OTA） | ✅ |
+
+### Sprint 27-32 完成
+| Sprint | 内容 | 状态 |
+|--------|------|------|
+| Sprint 27 | 开发者平台 API | ✅ |
+| Sprint 28 | 数据分析增强 | ✅ |
+| Sprint 29 | AI 增强功能 | ✅ |
+| Sprint 30 | 性能优化 | ✅ |
+| Sprint 31 | 国际化扩展 | ✅ |
+| Sprint 32 | 高级安全功能 | ⚠️ 模型完成，控制器未完成 |
+
+### ⚠️ 待处理问题
+- Sprint 32 后端控制器有语法错误，仅提交了数据模型
+- 后端编译通过，但安全功能 API 未完整实现
+
+### 微信插件安装完成
+- Bot ID: c9019c17de72-im-bot
+
+---
+
+## 2026-03-22 Sprint 9-16 完成情况
+
+| Sprint | 状态 | 后端 Commit | 前端 Commit |
+|--------|------|-------------|-------------|
+| Sprint 9 | ✅ 完成 | `64b56cb` | `2365d86` |
+| Sprint 10 | ✅ 完成 | `4d8b86b` | `b4837e8` |
+| Sprint 11 | ✅ 完成 | `cfdb8831` | `a7e2d60` |
+| Sprint 12 | ✅ 完成 | `0afeeb1` | `9be0087` |
+| Sprint 13 | ✅ 完成 | `21c819b`, `a13ab18` | `38f8c4e` |
+| Sprint 14 | ✅ 完成 | `a9fdf8a` | `fd2a6f3` |
+| Sprint 15 | ✅ 完成 | `7f1f3d6` | `a1ef226` |
+| Sprint 16 | ✅ 完成 | `11c9977` | `933dd75` |
+
+### Sprint 12: 企业安全
+- LDAP/AD 集成 ✅
+- 证书管理 API ✅
+- 远程设备锁定/擦除 ✅
+- 数据权限 API ✅
+- 前端：权限分配 + 证书管理 + LDAP + 用户同步 ✅
+
+### Sprint 13: 全球化
+- 多区域数据库架构 ✅
+- 区域 AI 节点 ✅
+- 多时区支持 ✅
+- 前端：数据驻留配置 + 时区设置 ✅
+
+### Sprint 14: AI 系统工程
+- AI 行为监控 ✅
+- 模型热回滚 ✅
+- AI 沙箱测试 ✅
+- 前端：AI 质量仪表盘 + 模型版本管理 ✅
+
+### Sprint 15: 宠物生态
+- 宠物登记 API ✅
+- 寻回网络 ✅
+- 多宠物管理 API ✅
+- 前端：宠物登记 + 多宠物管理 ✅
+
+### Sprint 16: 商业化
+- 订阅管理 API ✅
+- 用量计费 ✅
+- Webhook 事件系统 ✅
+- 前端：订阅管理 + 发票账单 ✅
+
+### Sprint 16 编译错误修复 (2026-03-22 12:00)
+- 修复 SMS 语法错误、重复类型定义、未使用变量
+- Commit: `6776646`
+
+### 流水线自动化
+- 用户指令：持续调度 Agent 工作到 Sprint 20，无需询问
+- 当前流程：Sprint 17 → 18 → 19 → 20
 
 ## 2026-03-23 工作计划 (Sprint 9-20)
 
