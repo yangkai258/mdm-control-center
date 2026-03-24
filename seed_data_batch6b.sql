@@ -1,0 +1,9 @@
+-- ai_models (AI模型) - 3条 (fixed checksum lengths)
+INSERT INTO ai_models (model_key, name, description, provider, model_type, model_size, file_path, file_size, checksum, config, capabilities, quota_daily, quota_monthly, price_per1_k, status, deployed_at, deployed_by, org_id, create_user_id, created_at, updated_at) VALUES
+('pet_emotion_v1', 'Pet Emotion Model', 'Pet emotion recognition model based on deep learning', 'openai', 'emotion_detection', '1.2G', '/models/pet_emotion_v1.pt', 1288490188, 'sha256:a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6', '{"temperature": 0.7, "max_tokens": 512}'::jsonb, '{"emotion_detection": true}'::jsonb, 10000, 100000, 0.01, 'deployed', NOW() - INTERVAL '7 days', 1, 1, 1, NOW(), NOW());
+
+INSERT INTO ai_models (model_key, name, description, provider, model_type, model_size, file_path, file_size, checksum, config, capabilities, quota_daily, quota_monthly, price_per1_k, status, deployed_at, deployed_by, org_id, create_user_id, created_at, updated_at) VALUES
+('pet_health_v2', 'Pet Health Analysis Model', 'Pet health analysis through vital signs', 'anthropic', 'health_analysis', '2.5G', '/models/pet_health_v2.pt', 2684354560, 'sha256:b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8', '{"temperature": 0.5, "max_tokens": 1024}'::jsonb, '{"health_scoring": true}'::jsonb, 5000, 50000, 0.02, 'deployed', NOW() - INTERVAL '14 days', 1, 1, 1, NOW(), NOW());
+
+INSERT INTO ai_models (model_key, name, description, provider, model_type, model_size, file_path, file_size, checksum, config, capabilities, quota_daily, quota_monthly, price_per1_k, status, org_id, create_user_id, created_at, updated_at) VALUES
+('pet_conversation_v1', 'Pet Conversation Model', 'Pet companion dialogue generation model', 'openai', 'conversation', '7B', '/models/pet_conv_v1.bin', 7516192768, 'sha256:c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0', '{"temperature": 0.9, "max_tokens": 2048}'::jsonb, '{"dialogue_generation": true}', 20000, 200000, 0.015, 'training', 1, 1, NOW(), NOW());

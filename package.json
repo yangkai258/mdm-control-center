@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "ai-control-center": "^1.6.79"
+    "ai-control-center": "^1.6.79",
+    "pg": "^8.20.0"
   }
 }
