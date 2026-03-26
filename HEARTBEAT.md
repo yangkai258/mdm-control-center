@@ -1,40 +1,41 @@
 # HEARTBEAT.md - Proactive Agent 检查
 
-# 🚀 项目就绪 - 等待用户指令
+# 🌙 晚间状态 (2026-03-26 21:00)
 
-## 用户指令
-用户关机前说: "明天开机再做后续的内容，我要怎么跟你说，你会立即执行"
+## 服务状态
+- ✅ Docker: 运行中 (PostgreSQL, Redis, EMQX)
+- ✅ 后端: 运行中 - http://localhost:8080
+- ✅ 前端: 运行中 - http://localhost:3000
 
-## 触发条件
-用户发送**任何消息** = 立即执行明日计划
+## 今日完成
+1. ✅ 用户管理 API (user_controller.go)
+2. ✅ 系统设置 API (settings_controller.go)
+3. ✅ AI 聊天 API (ai_controller.go)
+4. ✅ Git push 成功 (commits 55d4ea0, 9147e4f, 9e61c2a)
 
-## 立即执行清单
-当用户发消息时，自动执行以下（无需询问）:
+## API 验证状态
+| API | 端点 | 状态 |
+|-----|------|------|
+| 用户管理 | /api/v1/users | ✅ |
+| 系统设置 | /api/v1/settings | ✅ |
+| AI聊天 | /api/v1/ai/chat | ✅ |
+| 门店管理 | /api/v1/stores | ✅ |
+| 设备管理 | /api/v1/devices | ✅ |
+| Dashboard | /api/v1/dashboard/stats | ✅ |
+| 会员管理 | /api/v1/members | ✅ |
 
-### 1. 启动服务
-```bash
-# 1. 检查 Docker 状态
-docker ps
+## AI 聊天端点
+- POST /api/v1/ai/chat - 聊天
+- GET /api/v1/ai/conversations - 会话列表
+- GET /api/v1/ai/conversations/:id/messages - 消息历史
+- DELETE /api/v1/ai/conversations/:id - 删除会话
+- GET/PUT /api/v1/ai/config - AI配置
 
-# 2. 如果容器未运行，启动
-cd C:\Users\YKing\.openclaw\workspace\mdm-project
-docker-compose up -d
+## 访问信息
+- 前端: http://localhost:3000
+- 后端: http://localhost:8080
+- 账号: admin / admin123
 
-# 3. 等待后端就绪
-docker exec mdm_backend curl http://localhost:8080/health
-```
-
-### 2. 执行明日计划 (docs/SPRINT_TOMORROW.md)
-按计划分配 5 个 Agent:
-1. **agenthd** - 后端开发 (5h): stores API + ai/model/shards
-2. **agentqd** - 前端验收 (5h)
-3. **agentcp** - PRD 补充 (4h)
-4. **agentcs** - 全面测试 (4h)
-5. **agentyw** - CI/CD (2h)
-
-### 3. 监控进度
-- 每 30 分钟检查 Agent 状态
-- 阻塞时及时汇报
-
-## 无需主动提醒用户
-系统会等待用户消息，用户发消息即触发执行。
+## Git 状态
+- 分支: master
+- 最新: 9e61c2a feat: add AI chat API
