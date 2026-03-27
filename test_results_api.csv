@@ -1,0 +1,43 @@
+﻿Method,Path,Status,TimeMs,Result,Description
+GET,/health,200,170,PASS,Health Check
+GET,/api/v1/devices,ERR,48.8,FAIL,Device List
+GET,/api/v1/devices/1,ERR,2,FAIL,Device Detail
+GET,/api/v1/members,ERR,2.5,FAIL,Member List
+GET,/api/v1/members/1,ERR,1,FAIL,Member Detail
+GET,/api/v1/stores,ERR,1,FAIL,Store List
+GET,/api/v1/stores/1,ERR,3,FAIL,Store Detail
+GET,/api/v1/ai/models,ERR,1,FAIL,AI Models
+GET,/api/v1/notifications,ERR,2,FAIL,Notifications
+GET,/api/v1/ota/firmwares,ERR,1,FAIL,OTA Firmwares
+GET,/api/v1/plugins,ERR,0.5,FAIL,Plugins
+GET,/api/v1/timezones,ERR,1,FAIL,Timezones
+GET,/api/v1/websocket/clients,ERR,1,FAIL,WebSocket Clients
+POST,/api/v1/auth/login,ERR,9.5,FAIL,Login
+POST,/api/v1/auth/logout,ERR,2,FAIL,Logout
+GET,/api/v1/auth/me,ERR,1,FAIL,Current User
+GET,/api/v1/dashboard/stats,ERR,2,FAIL,Dashboard Stats
+GET,/api/v1/dashboard/realtime,ERR,1,FAIL,Realtime Data
+POST,/api/v1/devices,ERR,1,FAIL,Create Device
+PUT,/api/v1/devices/1,,0,PASS,Update Device
+DELETE,/api/v1/devices/1,,0,PASS,Delete Device
+POST,/api/v1/members,ERR,1,FAIL,Create Member
+PUT,/api/v1/members/1,,0,PASS,Update Member
+DELETE,/api/v1/members/1,,0,PASS,Delete Member
+POST,/api/v1/stores,ERR,2,FAIL,Create Store
+PUT,/api/v1/stores/1,,0,PASS,Update Store
+DELETE,/api/v1/stores/1,,0,PASS,Delete Store
+POST,/api/v1/devices/1/commands,ERR,2.2,FAIL,Device Command
+GET,/api/v1/devices/1/status,ERR,1,FAIL,Device Status
+GET,/api/v1/ai/config,ERR,1,FAIL,AI Config
+POST,/api/v1/ai/chat,ERR,0,FAIL,AI Chat
+GET,/api/v1/ai/prompts,ERR,1,FAIL,AI Prompts
+GET,/api/v1/settings,ERR,2,FAIL,Settings
+PUT,/api/v1/settings,,0,PASS,Update Settings
+GET,/api/v1/multi-region/regions,ERR,1,FAIL,Regions
+GET,/api/v1/multi-region/devices,ERR,1,FAIL,Region Devices
+GET,/api/v1/ldap/users,ERR,1,FAIL,LDAP Users
+POST,/api/v1/ldap/sync,ERR,2,FAIL,LDAP Sync
+GET,/api/v1/export/devices,ERR,1,FAIL,Export Devices
+GET,/api/v1/export/members,ERR,1,FAIL,Export Members
+GET,/api/v1/import/template,ERR,1,FAIL,Import Template
+

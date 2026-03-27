@@ -112,6 +112,23 @@ while agents_running:
 
 ---
 
+## 🚨 核心原则 - 必须严格遵守
+
+**前端必须使用 Arco Design Pro！**
+- `mdm-frontend-new/arco-design-pro-vite/` 是唯一的 Arco Design Pro 前端目录
+- 所有新功能开发、页面迁移必须在此目录下
+- **禁止在旧前端** (`frontend/frontend/`) 开发新功能
+- 旧前端只有基础 CSS + 部分 Arco 组件，**不是真正的 Arco Design Pro**
+- 如果目录为空，必须创建！参考: https://arco.design/pro/
+
+**迁移检查清单：**
+1. `mdm-frontend-new/arco-design-pro-vite/` 必须存在且包含完整项目
+2. `npm run dev` 能正常运行
+3. 所有业务页面在 Arco Pro 模板下开发
+4. 部署时使用新前端目录
+
+---
+
 ## 技术知识
 
 **当前项目技术栈：AI 电子宠物 MDM 平台**

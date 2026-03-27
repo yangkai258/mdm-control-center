@@ -1,0 +1,59 @@
+﻿Method,Path,Status,TimeMs,Result,Description
+GET,/health,200,14.4,PASS,Health Check
+GET,/api/v1/devices,200,22.3,PASS,Device List
+GET,/api/v1/devices/1,404,12.7,NOT_FOUND,Device Detail
+GET,/api/v1/members,200,20,PASS,Member List
+GET,/api/v1/members/1,200,13.5,PASS,Member Detail
+GET,/api/v1/stores,404,4,NOT_FOUND,Store List
+GET,/api/v1/stores/1,404,2,NOT_FOUND,Store Detail
+GET,/api/v1/ai/models,200,15.5,PASS,AI Models
+GET,/api/v1/notifications,200,15.7,PASS,Notifications
+GET,/api/v1/ota/firmwares,404,4,NOT_FOUND,OTA Firmwares
+GET,/api/v1/plugins,404,3,NOT_FOUND,Plugins
+GET,/api/v1/timezones,200,9.9,PASS,Timezones
+GET,/api/v1/websocket/clients,404,2.1,NOT_FOUND,WebSocket Clients
+POST,/api/v1/auth/login,200,73.2,PASS,Login
+POST,/api/v1/auth/logout,500,8.5,SERVER_ERR,Logout
+GET,/api/v1/auth/me,404,2,NOT_FOUND,Current User
+GET,/api/v1/dashboard/stats,200,22.1,PASS,Dashboard Stats
+GET,/api/v1/dashboard/realtime,404,3.5,NOT_FOUND,Realtime Data
+POST,/api/v1/devices,500,4,SERVER_ERR,Create Device
+PUT,/api/v1/devices/1,404,5.5,NOT_FOUND,Update Device
+DELETE,/api/v1/devices/1,404,5.5,NOT_FOUND,Delete Device
+POST,/api/v1/members,500,9.5,SERVER_ERR,Create Member
+PUT,/api/v1/members/1,200,18.7,PASS,Update Member
+DELETE,/api/v1/members/1,200,16.9,PASS,Delete Member
+POST,/api/v1/stores,500,3.1,SERVER_ERR,Create Store
+PUT,/api/v1/stores/1,500,4,SERVER_ERR,Update Store
+DELETE,/api/v1/stores/1,500,4,SERVER_ERR,Delete Store
+POST,/api/v1/devices/1/commands,404,4.5,NOT_FOUND,Device Command
+GET,/api/v1/devices/1/status,404,3,NOT_FOUND,Device Status
+GET,/api/v1/ai/config,404,2,NOT_FOUND,AI Config
+POST,/api/v1/ai/chat,500,3.5,SERVER_ERR,AI Chat
+GET,/api/v1/ai/prompts,404,3,NOT_FOUND,AI Prompts
+GET,/api/v1/settings,404,2,NOT_FOUND,Settings
+PUT,/api/v1/settings,500,3.5,SERVER_ERR,Update Settings
+GET,/api/v1/multi-region/regions,404,2,NOT_FOUND,Regions
+GET,/api/v1/multi-region/devices,404,2,NOT_FOUND,Region Devices
+GET,/api/v1/ldap/users,200,17.1,PASS,LDAP Users
+POST,/api/v1/ldap/sync,200,15,PASS,LDAP Sync
+GET,/api/v1/export/devices,404,4,NOT_FOUND,Export Devices
+GET,/api/v1/export/members,404,2,NOT_FOUND,Export Members
+GET,/api/v1/import/template,404,3,NOT_FOUND,Import Template
+GET,/api/v1/mqtt/status,404,3.5,NOT_FOUND,MQTT Status
+GET,/api/v1/mqtt/clients,404,3,NOT_FOUND,MQTT Clients
+GET,/api/v1/emotion/status,404,3.1,NOT_FOUND,Emotion Status
+GET,/api/v1/emotion/records,404,3,NOT_FOUND,Emotion Records
+GET,/api/v1/logs,404,2,NOT_FOUND,System Logs
+GET,/api/v1/logs/device/1,404,2.5,NOT_FOUND,Device Logs
+GET,/api/v1/users,404,3,NOT_FOUND,User List
+GET,/api/v1/users/1,404,2,NOT_FOUND,User Detail
+POST,/api/v1/users,500,3.5,SERVER_ERR,Create User
+PUT,/api/v1/users/1,500,5,SERVER_ERR,Update User
+DELETE,/api/v1/users/1,500,4.5,SERVER_ERR,Delete User
+GET,/api/v1/roles,200,17.1,PASS,Role List
+GET,/api/v1/permissions,404,4.1,NOT_FOUND,Permissions
+GET,/api/v1/stats/devices,404,3.8,NOT_FOUND,Device Stats
+GET,/api/v1/stats/members,404,4.2,NOT_FOUND,Member Stats
+GET,/api/v1/stats/usage,404,2.6,NOT_FOUND,Usage Stats
+

@@ -1,0 +1,4 @@
+FROM nginx:alpine
+COPY mdm-project/frontend/dist /usr/share/nginx/html
+COPY mdm-project/frontend/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
