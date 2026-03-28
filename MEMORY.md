@@ -64,6 +64,14 @@
 
 ## ⚠️ 已知问题
 
+### ⚠️ 后端构建目录问题 (2026-03-28)
+- **问题**: 项目有两个入口点:
+  - `mdm-project/main.go` (根目录) - 不完整，缺少很多路由
+  - `mdm-project/backend/main.go` - 完整版本
+- **原因**: 根目录 `main.go` 和 `backend/main.go` 是不同的文件，共存于同一仓库
+- **教训**: 必须从 `backend/` 目录构建: `cd backend && go build -o ../mdm-server.exe .`
+- **预防**: 永远不要从根目录构建mdm-project的后端
+
 ### Git 浅克隆问题 (2026-03-22)
 - **现象**: GitHub 上有 docs/04_会员营销系统.md 等文件，但本地没有
 - **原因**: Clone 或 Fetch 时用了 --depth=1（浅克隆），只拉最新 commit，遗漏历史中的文件
