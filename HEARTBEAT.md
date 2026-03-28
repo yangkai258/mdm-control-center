@@ -1,43 +1,48 @@
 # HEARTBEAT.md - Proactive Agent 检查
 
-# 🌅 早晨状态 (2026-03-28 07:58)
+# 🌅 早晨状态 (2026-03-28 08:15)
 
 ## 服务状态
 - ✅ Docker: 运行中 (PostgreSQL, Redis, EMQX)
-- ✅ 后端: http://localhost:8080 (新编译 binary)
+- ✅ 后端: http://localhost:8080 (`mdm-server-fixed2.exe` from `backend/` build)
 - ✅ 前端: http://localhost:3000 (Vite dev server, PID: 27492)
 
 ## ✅ 今晨修复完成
 | 问题 | Commit | 状态 |
 |------|--------|------|
 | Git Submodule损坏 | `33d35a2` | ✅ 已修复+推送 |
-| 后端旧binary(无响应) | - | ✅ 重新编译 |
+| 后端旧binary(无响应) | - | ✅ 从backend/目录重新编译 |
 | 前端vite代理端口 | `3921d80` | ✅ 已修复+推送 |
+| OfflineController nil pointer | `501521d` | ✅ 已修复+推送 |
 
-### Git Submodule修复详情
-- 删除损坏的 gitlink (`mdm-frontend-new` → commit `bd88c3d3` 不存在)
-- 添加完整的 Arco Design Pro 前端项目（105文件）
-- 推送 commit `33d35a2`
+## API测试结果
+| API | 状态 | 说明 |
+|-----|------|------|
+| `/api/v1/offline/cache` | ✅ 200 | device_id参数返回正确 |
+| `/api/v1/data-masking/rules` | ✅ 200 | 返回空列表 |
+| `/api/v1/subscriptions/auto-renewal/status` | ✅ 400 | 需要参数，正常响应 |
+| `/api/v1/devices` | ✅ 200 | 正常 |
+| `/api/v1/alerts` | ✅ 200 | 正常 |
 
-### 后端重新编译
-- 旧binary (2026-03-22) 与当前源码不兼容
-- 新编译 `mdm-server.exe` (52MB, 2026-03-28)
-- 编译通过，无错误
+## 关键发现
+- **构建目录**: 必须从 `backend/` 目录构建，而不是从根目录
+- **根目录main.go vs backend/main.go**: 两个不同的入口点，backend版本有完整路由
+- **NewOfflineController**: 必须使用构造函数初始化SyncService
 
-## ⚠️ 已知问题
-1. 前端 `npm run dev` 需在 `mdm-frontend-new/` 目录运行
-2. vite代理已从 16666 改为 8080
+## Git Commits (今日)
+1. `33d35a2` - fix: 修复git submodule损坏
+2. `3921d80` - fix(frontend): API代理端口修复
+3. `501521d` - fix(backend): 修复OfflineController初始化问题
+
+## ⚠️ 重要提醒
+后端编译命令：
+```bash
+cd mdm-project/backend
+go build -o ../mdm-server.exe .
+```
+不要从根目录 `mdm-project/` 构建！
 
 ## 访问信息
 - 后端: http://localhost:8080
 - 前端: http://localhost:3000
 - 账号: admin / admin123
-
-## Git 状态
-- 分支: master
-- 最新 commit: `3921d80`
-
-## 今天工作计划
-1. ✅ Git Submodule修复 - 完成
-2. ⏳ 前端API联调测试
-3. ⏳ 部署文档完善
