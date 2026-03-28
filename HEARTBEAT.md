@@ -1,25 +1,32 @@
 # HEARTBEAT.md - Proactive Agent 检查
 
-# 🌙 凌晨状态 (2026-03-28 02:04)
+# 🌅 早晨状态 (2026-03-28 07:58)
 
 ## 服务状态
 - ✅ Docker: 运行中 (PostgreSQL, Redis, EMQX)
-- ✅ 后端: http://localhost:8080 (PID: 31360)
-- ✅ 前端: http://localhost:3000 (Arco Design Pro, PID: 16796)
+- ✅ 后端: http://localhost:8080 (新编译 binary)
+- ✅ 前端: http://localhost:3000 (Vite dev server, PID: 27492)
 
-## ✅ 今夜修复完成
+## ✅ 今晨修复完成
 | 问题 | Commit | 状态 |
 |------|--------|------|
-| WebhookTemplate表缺失 | `6ef9520` | ✅ 已推送 |
-| DataMaskingRule表缺失 | `9afe8f6` | ✅ 已推送 |
-| 离线支持API | - | ✅ 已修复 |
-| API路由注册 | `97d8a2a` | ✅ 已推送 |
-| 前端vite.config.dev.ts | - | ✅ 已创建 |
-| 权限页面视图 | - | ✅ 已添加 |
+| Git Submodule损坏 | `33d35a2` | ✅ 已修复+推送 |
+| 后端旧binary(无响应) | - | ✅ 重新编译 |
+| 前端vite代理端口 | `3921d80` | ✅ 已修复+推送 |
+
+### Git Submodule修复详情
+- 删除损坏的 gitlink (`mdm-frontend-new` → commit `bd88c3d3` 不存在)
+- 添加完整的 Arco Design Pro 前端项目（105文件）
+- 推送 commit `33d35a2`
+
+### 后端重新编译
+- 旧binary (2026-03-22) 与当前源码不兼容
+- 新编译 `mdm-server.exe` (52MB, 2026-03-28)
+- 编译通过，无错误
 
 ## ⚠️ 已知问题
-1. mdm-frontend-new Git Submodule损坏（不影响运行）
-2. 前端无法删除node_modules（文件锁问题）
+1. 前端 `npm run dev` 需在 `mdm-frontend-new/` 目录运行
+2. vite代理已从 16666 改为 8080
 
 ## 访问信息
 - 后端: http://localhost:8080
@@ -28,9 +35,9 @@
 
 ## Git 状态
 - 分支: master
-- 最新 commit: `6ef9520`
+- 最新 commit: `3921d80`
 
-## 明天工作计划
-1. 修复mdm-frontend-new的git submodule问题
-2. 前端API联调测试
-3. 部署文档完善
+## 今天工作计划
+1. ✅ Git Submodule修复 - 完成
+2. ⏳ 前端API联调测试
+3. ⏳ 部署文档完善
