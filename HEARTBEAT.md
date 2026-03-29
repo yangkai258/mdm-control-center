@@ -5,9 +5,15 @@
 ## 服务状态 ✅
 | 服务 | 端口 | 状态 |
 |------|------|------|
-| 后端 | 8080 | ✅ 运行中 |
+| 后端 | 8080 | ✅ 运行中 (2026-03-29 修复启动) |
 | 前端 | 3000 | ✅ 运行中 |
 | 数据库 | PostgreSQL | ✅ Docker |
+
+## 2026-03-29 修复
+- **问题**: 数据库迁移失败 - embodied_maps 表缺少 map_type 列
+- **修复**: 手动执行 SQL 添加列 `ALTER TABLE embodied_maps ADD COLUMN map_type varchar(20) DEFAULT 'grid'`
+- **提交**: `d11743e` - fix: add missing map_type column to embodied_maps and rebuild binary
+- **注意**: 后端需从 backend/ 目录构建: `go build -o mdm-server.exe .`
 
 ## 视图文件统计
 - **总视图数**: 251个 ✅ (超过250目标)
