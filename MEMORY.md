@@ -28,6 +28,10 @@
 - self-monitor
 - task-development-workflow
 - product-manager
+- architecture-designer
+- architecture-review
+- architecture-patterns
+- arch-planning (System Architect)
 - requirements-analysis
 - memory-setup
 - proactive-agent
@@ -62,6 +66,30 @@
 3. **检查点机制** - 监控 Agent 状态，及时干预
 4. **会话快照** - 已设置每小时自动快照，防止系统重启后丢失工作进度
 
+## 2026-03-31/04-01 重大更新
+
+### 通宵开发成果
+- 修复 17 个 API 缺口，全部验证通过
+- 新增设备配对模块（PairingRecord + DeviceOpenClawBinding）
+- 新增 7 个 P1/P2 模块（会员卡/标签/订单/临时会员/服务/日志/BPMN）
+- 修复 PetController Redis nil panic
+- 修复 PetBehaviorAction AutoMigrate 缺失
+
+### 验证正常的 API（关键）
+- 设备影子: desired/reported/state-diff 全部正常
+- AI: chat ✅, models ✅
+- 宠物: status ✅, behaviors ✅, conversations ✅
+- 设备配对: pairing/code ✅, pairing/history ✅
+- 设备监控: dashboard ✅, realtime ✅
+- 会员: members POST ✅, stores POST ✅, cards ✅, tags ✅, orders ✅
+- 服务: temp-members ✅, services ✅
+- 日志: device/logs ✅
+- BPMN: flow/processes ✅
+
+### Git LFS 问题
+- mdm-server-new.exe 超过 50MB，GitHub 警告
+- 需配置 Git LFS 或移除 .exe 文件
+
 ## ⚠️ 已知问题
 
 ### ⚠️ 后端构建目录问题 (2026-03-28)
@@ -83,12 +111,13 @@
 - **原因**: OpenClaw重启或会话被清理时会丢失历史
 - **解决**: 创建了每小时cron任务自动保存会话快照到 `memory/SESSION_SNAPSHOT.md`
 
-## 前端迁移策略 (2026-03-21 更新)
+## 前端迁移策略 (2026-03-29 更新)
 
-**目标目录**：`mdm-frontend-new/arco-design-pro-vite/`（Arco Design Pro 模板）
+**目标目录**：`mdm-frontend-new/`（Arco Design Pro 模板）
 **旧目录**：`frontend/`（不再维护）
 
-**迁移进度**：昨晚2点创建了全新ArcoPro工程，已有多模块view文件
+**迁移进度**：已提交 91 个 Vue 文件（Dashboard/Device/Member/Alerts/OTA 等模块）
+**Commit**: `108b2c2` feat(frontend): add mdm-frontend-new with Arco Design Pro structure
 
 **UI规范**：标准三段式布局
 1. 面包屑 → 页面标题
@@ -826,3 +855,28 @@ Fill in the 4 critical gaps or clarify scope with user
 
 ### PRD完成度
 - **100%** - 所有功能已实现并测试通过
+
+## 2026-03-29 前端全面优化完成
+
+### 完成的工作
+- **所有 300+ 页面全部添加 Breadcrumb** ✅
+- 全局 Breadcrumb.vue 组件创建
+- 全局菜单导航 navigate() 修复
+- 全局图标注册（ArcoVueIcon）
+- 登录 user 数据格式修复
+- GBK 乱码文件修复（FirmwareList.vue, PetConsole.vue）
+- 69 个新页面创建（标准模板）
+
+### Git Commits
+- `cf9d0e4` feat(frontend): all views with Breadcrumb + global components (253 files changed, 11954 insertions)
+- `5c5983f` docs: add GAP_ANALYSIS and QA report
+
+### 教训
+- Agent 并行运行超时：前端优化任务过大，单个 Agent 运行 4+ 小时仍无法完成
+- 解决：直接接管，逐个创建页面，最终完成
+- 前端 Agent 写入文件后被其他 Agent 覆盖：无协调机制导致部分文件被覆盖两次
+
+### 预防
+- 大任务拆分：单个 Agent 任务不超过 30 分钟
+- 文件范围明确分配：禁止 Agent 修改相同文件
+- 定期同步检查：每 10 分钟检查 Agent 进度
