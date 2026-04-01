@@ -880,3 +880,34 @@ Fill in the 4 critical gaps or clarify scope with user
 - 大任务拆分：单个 Agent 任务不超过 30 分钟
 - 文件范围明确分配：禁止 Agent 修改相同文件
 - 定期同步检查：每 10 分钟检查 Agent 进度
+
+---
+
+## 2026-04-01 晚间修复
+
+### 登录系统重构 ✅
+- 切换前端到 `mdm-frontend-new/arco-design-pro-vite/`（Arco Design Pro）
+- 修复 API 路径不匹配：`/api` → `/api/v1` proxy rewrite
+- 修复响应码：后端统一 `code: 20000`
+- 后端新增 `/auth/logout`、`/auth/me`、`/auth/menu` 接口
+
+### 菜单空白项问题 ✅
+- **根因**：redirect 路由没有 component 但被菜单渲染
+- **修复**：12 个 redirect 路由加 `hideInMenu: true`
+- **修复**：菜单组件 locale fallback 到 route.name
+
+### Git Commits
+- `24dcc4c` fix: login system - API path, proxy rewrite, response codes, breadcrumb, i18n
+
+### 关键文件路径
+| 文件 | 作用 |
+|------|------|
+| `mdm-frontend-new/arco-design-pro-vite/.env.development` | 删除 VITE_API_BASE_URL |
+| `mdm-frontend-new/arco-design-pro-vite/config/vite.config.dev.ts` | 代理 rewrite |
+| `mdm-frontend-new/arco-design-pro-vite/src/api/user.ts` | API 路径 + GET 方法 |
+| `backend/controllers/auth_controller.go` | 新增接口 + code:20000 |
+| `backend/main.go` | 注册新路由 |
+| `src/layout/page-layout.vue` | 全局面包屑组件 |
+| `src/components/menu/index.vue` | 菜单 locale fallback |
+| `src/router/routes/modules/dashboard.ts` | hideInMenu 标记 |
+| `src/locale/zh-CN.ts` | 清除重复 key |
