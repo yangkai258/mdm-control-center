@@ -1,58 +1,36 @@
-# 会话快照 - 2026-04-01 21:02 (Asia/Shanghai)
+# 会话快照 - 2026-04-02 00:30
 
-## 当前任务
-- MDM控制中台 API 联调 - 🔄 进行中
+## 状态
+- 🔴 后端 8080 ✅
+- 🔴 前端 3000 ✅ (Arco Design Pro)
+- 🔴 Docker ✅
 
-## 进度记录
+## 今日完成
+1. ✅ 登录系统重构（API路径/代理/响应码）
+2. ✅ 切换到新前端 arco-design-pro-vite
+3. ✅ 面包屑全局组件
+4. ✅ 菜单空白项修复
+5. ✅ 菜单 sort 功能定位（旧前端 `frontend/src/views/permissions/Menus.vue`）
 
-### 已完成工作（2026-04-01凌晨场）
-- ✅ 修复 PetController Redis nil panic（commit ab28c04）
-- ✅ 修复 PetBehaviorAction AutoMigrate 缺失
-- ✅ 补全 P0 缺口：BehaviorController注册、设备影子API、AI模型管理
-- ✅ 创建设备配对模块（PairingRecord + DeviceOpenClawBinding + 4个API）
-- ✅ 补全 P1/P2 模块：会员卡、会员标签、会员订单、临时会员、会员服务、设备日志、BPMN流程（7个模块）
-- ✅ 验证 17 个新 API 全部通过
-- ✅ 安装新 Skills：arch-planning、architecture-review、architecture-patterns
+## 发现的问题
+- 旧前端 `frontend/` 有 **270+ 个文件** 未迁移到新前端
+- 菜单 sort 功能在 `permissions/Menus.vue`（sort 数字字段）
 
-### 本小时进展（20:48 → 21:02）
-- ⏳ 持续进行 API 联调验证
-- ⏳ 监控后端服务稳定性
+## 明日工作：前端迁移
 
-### 当前服务状态
-| 服务 | 地址 | 状态 |
-|------|------|------|
-| 后端 | http://localhost:8080 | ✅ |
-| 前端 | http://localhost:3000 | ✅ |
-| PostgreSQL | Docker | ✅ |
-| Redis | Docker | ✅ |
-| EMQX | Docker | ✅ |
+### 文档
+- `mdm-project/docs/MIGRATION_MISSING.md` - 完整缺失清单
+- `mdm-project/docs/TOMORROW_PLAN.md` - 明日工作计划
 
-### Git Commits（今日）
-| Commit | 说明 |
-|--------|------|
-| `ab28c04` | fix(backend): PetController Redis client |
-| `2037d20` | fix(backend): register missing controllers + device shadow APIs |
-| `26ab603` | feat(backend): device pairing module |
-| `eb1116c` | feat(backend): add 7 missing P1/P2 modules |
-| `fe72c8c` | docs: update PRD gap analysis |
+### Phase 1 核心页面
+Dashboard.vue, DeviceDashboard.vue, DeviceStatus.vue, Member.vue, PetConfig.vue, OtaFirmware.vue, Alert.vue
 
-### 新增 API（17个全部验证通过）
-- AI版本管理：GET /api/v1/ai/models
-- 设备影子：GET /api/v1/devices/:id/reported-state、GET /api/v1/devices/:id/state-diff
-- 设备配对：POST /api/v1/devices/pairing/code、GET /api/v1/devices/pairing/history
-- 设备监控：GET /api/v1/devices/monitor/dashboard、GET /api/v1/devices/:id/monitor/realtime
-- 宠物行为：GET /api/v1/pets/:id/behaviors
-- 会员模块：会员卡、会员标签、会员订单、临时会员、会员服务（7个API）
-- 设备日志：GET /api/v1/device/logs、GET /api/v1/devices/:id/logs
-- BPMN流程：GET/POST /api/v1/flow/processes
+### 迁移规范
+1. 面包屑 `<Breadcrumb>`
+2. 三段式布局
+3. API `/api/v1/xxx` 通过代理
+4. `a-card.general-card` 包裹
+5. axios 带 Authorization
 
-## 下一步
-- 继续前端 API 联调验证
-- 后端稳定性优化（进程管理）
-- 部署文档完善
-- Git LFS 配置（解决 mdm-server-new.exe > 50MB 问题）
-
-## 重要上下文
-- MDM项目技术栈：Golang + Gin + GORM + Vue3 + Arco Design + PostgreSQL + Redis + EMQX
-- 端口：前端 3000，后端 8080，MQTT 1883/8083，Redis 6379
-- GitHub: https://github.com/yangkai258/mdm-iot-platform
+## GitHub
+- https://github.com/yangkai258/mdm-iot-platform
