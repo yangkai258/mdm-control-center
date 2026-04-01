@@ -1,55 +1,63 @@
-# HEARTBEAT.md - Proactive Agent 检查
-
-# 🌙 深夜状态 (2026-03-29 00:28)
+# HEARTBEAT.md - 凌晨状态 (2026-04-01 00:10)
 
 ## 服务状态 ✅
 | 服务 | 端口 | 状态 |
 |------|------|------|
-| 后端 | 8080 | ✅ 运行中 (2026-03-29 修复启动) |
+| 后端 | 8080 | ✅ 运行中 |
 | 前端 | 3000 | ✅ 运行中 |
-| 数据库 | PostgreSQL | ✅ Docker |
+| PostgreSQL | 5432 | ✅ Docker |
+| Redis | 6379 | ✅ Docker |
+| EMQX | 1883/8083/18083 | ✅ Docker |
 
-## 2026-03-29 修复
-- **问题**: 数据库迁移失败 - embodied_maps 表缺少 map_type 列
-- **修复**: 手动执行 SQL 添加列 `ALTER TABLE embodied_maps ADD COLUMN map_type varchar(20) DEFAULT 'grid'`
-- **提交**: `d11743e` - fix: add missing map_type column to embodied_maps and rebuild binary
-- **注意**: 后端需从 backend/ 目录构建: `go build -o mdm-server.exe .`
+## 2026-03-31 → 2026-04-01 完成汇总
 
-## 视图文件统计
-- **总视图数**: 251个 ✅ (超过250目标)
-- **Git Commits**: 21个 (今夜)
-
-### 功能模块覆盖
-
-| 模块 | 视图数 | 状态 |
-|------|--------|------|
-| 设备管理 | 12+ | ✅ |
-| 会员管理 | 13+ | ✅ (已补齐促销/升级动画/临时会员) |
-| 宠物管理 | 15+ | ✅ |
-| AI管理 | 10+ | ✅ |
-| OTA管理 | 4+ | ✅ |
-| 订阅管理 | 6+ | ✅ |
-| 告警管理 | 5+ | ✅ |
-| 系统管理 | 25+ | ✅ |
-| 数据分析 | 1+ | ✅ |
-| 开放平台 | 5+ | ✅ |
-| 内容生态 | 4+ | ✅ |
-| 家庭功能 | 6+ | ✅ |
-| 基础设施 | 20+ | ✅ |
-
-### Git Commits (2026-03-28 夜)
+### Git Commits (按时间顺序)
 | Commit | 内容 |
 |--------|------|
-| `a7a873d` | 第二十一批: 会员管理补齐 (促销/升级动画/临时会员) |
-| `b8e3b04` | 第二十批: 功能完善 (250目标达成) |
-| `9b06517` | 第十九批 |
+| `2037d20` | fix(backend): register missing controllers and add device shadow APIs |
+| `ab28c04` | fix(backend): PetController add Redis client |
+| `26ab603` | feat(backend): add device pairing module |
+| `eb1116c` | feat(backend): add missing P1/P2 modules - cards, tags, orders, temp-members, services, device logs, flow processes |
 
-### 访问信息
-- 前端: http://localhost:3000
+### 新增 API (全部验证通过 ✅)
+| API | 方法 | 状态 |
+|-----|------|------|
+| `/api/v1/ai/models` | GET | ✅ |
+| `/api/v1/devices/:id/reported-state` | GET | ✅ |
+| `/api/v1/devices/:id/state-diff` | GET | ✅ |
+| `/api/v1/devices/pairing/code` | POST | ✅ |
+| `/api/v1/devices/pairing/history` | GET | ✅ |
+| `/api/v1/pets/:id/behaviors` | GET | ✅ |
+| `/api/v1/devices/monitor/dashboard` | GET | ✅ |
+| `/api/v1/devices/:id/monitor/realtime` | GET | ✅ |
+| `/api/v1/cards` | GET/POST | ✅ |
+| `/api/v1/tags` | GET | ✅ |
+| `/api/v1/members/:id/tags` | GET/POST/DELETE | ✅ |
+| `/api/v1/orders` | GET/POST | ✅ |
+| `/api/v1/temp-members` | GET/POST | ✅ |
+| `/api/v1/services` | GET/POST | ✅ |
+| `/api/v1/device/logs` | GET | ✅ |
+| `/api/v1/devices/:id/logs` | GET | ✅ |
+| `/api/v1/flow/processes` | GET/POST | ✅ |
+
+## 修复的问题
+- ✅ PetController Redis nil panic
+- ✅ PetBehaviorAction 表缺失 (500错误)
+- ✅ Device Shadow reported/state-diff 路由
+- ✅ AI /ai/models 路由
+- ✅ BehaviorController 注册
+- ✅ POST /stores 500 错误
+- ✅ POST /members 500 错误
+
+## 访问信息
+- 前端: http://localhost:3000 （admin / admin123）
 - 后端: http://localhost:8080
-- 账号: admin / admin123
+- EMQX: http://localhost:18083 （admin/public）
 
-## PRD完成度
-- **PRD文档**: 100% (32个Sprint)
-- **前端视图**: 251个 ✅
-- **后端API**: ~70个控制器
+## GitHub
+- https://github.com/yangkai258/mdm-iot-platform
+
+## 待处理
+- [ ] 后端稳定性优化（进程管理/自动重启）
+- [ ] 前端 API 联调验证
+- [ ] 部署文档推送（网络问题）
