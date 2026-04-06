@@ -1,61 +1,34 @@
-# HEARTBEAT.md - 凌晨状态 (2026-04-02 00:30)
+# HEARTBEAT.md - 服务状态 (2026-04-06 15:40)
 
-## 服务状态 ✅
-| 服务 | 端口 | 状态 |
-|------|------|------|
-| 后端 | 8080 | ✅ 运行中 |
-| 前端 | 3000 | ✅ 运行中 (Arco Design Pro) |
-| PostgreSQL | 5432 | ✅ Docker healthy |
-| Redis | 6379 | ✅ Docker healthy |
-| EMQX | 1883/8083/18083 | ✅ Docker healthy |
+## 当前状态
+- ✅ Docker Desktop 运行中（PostgreSQL/Redis/EMQX healthy）
+- ✅ 后端 http://localhost:8080 运行中
+- ✅ 前端 Preview http://localhost:3003 运行中
 
-## 2026-04-02 凌晨完成
+## 今日完成
+1. ✅ 统一菜单模块 - 删掉重复的 MDMMenu，将所有功能合并到单一 mdm.ts
+2. ✅ 路由嵌套结构 - 每个模块作为父路由，子路由嵌套在父路由下
+3. ✅ 补全缺失的 locale 翻译（51个菜单键）
+4. ✅ 修复 API proxy 配置（preview 模式可正常登录）
+5. ✅ Git commit: `f8c7e8a` feat(frontend): unify all menu modules into single mdm.ts
 
-### 登录系统修复 ✅
-- 删除 `.env.development` 中的 `VITE_API_BASE_URL`
-- `vite.config.dev.ts` 代理 rewrite：`/api` → `/api/v1`
-- 修复 `user.ts` API 路径：`/api/user/login` → `/api/auth/login`
-- 后端新增 `/logout`、`/me`、`/menu` 接口，响应码统一 `code: 20000`
-- 修复 `getUserInfo()` / `getMenuList()` 为 GET 方法
+## Git Commits（今日）
+- `92eb45e` fix(frontend): replace a-chart with placeholder divs
+- `f5addad` fix(frontend): add business routes, fix build issues
+- `a2b2a5b` fix(frontend): register 80+ business routes as top-level menu items
+- `b3e81b2` fix(frontend): complete missing zh-CN locale translations
+- `fa49637` fix(frontend): restructure routes as nested children under parent modules
+- `7a3fa04` chore(frontend): remove business.ts (merged into mdm.ts)
+- `f8c7e8a` feat(frontend): unify all menu modules into single mdm.ts
 
-### 前端迁移 ✅
-- 切换到 `mdm-frontend-new/arco-design-pro-vite/`
-- 旧 `frontend/` 保留（待迁移功能）
-
-### 面包屑全局组件 ✅
-- `page-layout.vue` 全局加入 `<Breadcrumb>`
-
-### 菜单空白项修复 ✅
-- 12 个 redirect 路由加 `hideInMenu: true`
-- `menu/index.vue` 菜单 locale fallback
-
-### 国际化修复 ✅
-- 清除 `zh-CN.ts` 重复 key
-
-## 明日工作计划
-
-### 文档
-- 迁移清单：`mdm-project/docs/MIGRATION_MISSING.md`
-- 明日计划：`mdm-project/docs/TOMORROW_PLAN.md`
-
-### Phase 1 核心页面迁移
-- Dashboard.vue, DeviceDashboard.vue, DeviceStatus.vue
-- Member.vue, PetConfig.vue, OtaFirmware.vue, Alert.vue
-
-### 迁移标准
-- 面包屑 + 三段式布局
-- API 通过 `/api` 代理
-- Arco Design 组件
-- Authorization header
+## 待处理
+- 菜单仍有少量 fallback 到 route.name 的项（locale 键未注册）
+- Vite chunk 缓存问题（硬刷新 Ctrl+Shift+R）
 
 ## 访问信息
-- 前端: http://localhost:3000 （admin / admin123）
-- 后端: http://localhost:8080
-- EMQX: http://localhost:18083 （admin/public）
+- 新前端：http://localhost:3003 （admin / admin123）
+- 后端：http://localhost:8080
+- EMQX：http://localhost:18083 （admin/public）
 
 ## GitHub
 - https://github.com/yangkai258/mdm-iot-platform
-
-## 待处理
-- [ ] Phase 1 核心页面迁移
-- [ ] 后端稳定性优化

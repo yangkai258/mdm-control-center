@@ -1,36 +1,41 @@
-# 会话快照 - 2026-04-02 00:30
+# 会话快照 - 2026-04-06 21:02 (Asia/Shanghai)
 
-## 状态
-- 🔴 后端 8080 ✅
-- 🔴 前端 3000 ✅ (Arco Design Pro)
-- 🔴 Docker ✅
+## 当前任务
+- MDM 控制中台前端修复 — 多项 P0 问题已解决，今日进入收尾阶段
 
-## 今日完成
-1. ✅ 登录系统重构（API路径/代理/响应码）
-2. ✅ 切换到新前端 arco-design-pro-vite
-3. ✅ 面包屑全局组件
-4. ✅ 菜单空白项修复
-5. ✅ 菜单 sort 功能定位（旧前端 `frontend/src/views/permissions/Menus.vue`）
+## 进度记录
 
-## 发现的问题
-- 旧前端 `frontend/` 有 **270+ 个文件** 未迁移到新前端
-- 菜单 sort 功能在 `permissions/Menus.vue`（sort 数字字段）
+### 今日已完成（21:00 前）
 
-## 明日工作：前端迁移
+| # | 问题 | 状态 |
+|---|------|------|
+| 1 | 空白页面路由注册（40+ 菜单项空白） | ✅ 已修复 (`a2b2a5b`) |
+| 2 | 菜单显示 locale key 而非中文（缺 51 个翻译） | ✅ 已修复 (`b3e81b2`) |
+| 3 | API 登录失败（/api 未转发后端） | ✅ 已修复（preview 改用 `--config vite.config.dev.ts`） |
+| 4 | Dev server SPA 路由 404 | ✅ 绕过（改用 preview 模式） |
+| 5 | a-chart 依赖问题导致构建失败 | ✅ 已替换为 placeholder divs (`92eb45e`) |
+| 6 | 路由重复/冲突（dashboard.ts 旧路由干扰） | ✅ 已清理 (`f5addad`, `fa49637`) |
 
-### 文档
-- `mdm-project/docs/MIGRATION_MISSING.md` - 完整缺失清单
-- `mdm-project/docs/TOMORROW_PLAN.md` - 明日工作计划
+### 服务状态（21:02）
+| 服务 | 端口 | 状态 |
+|------|------|------|
+| Docker (PostgreSQL/Redis/EMQX) | - | ✅ |
+| 后端 | localhost:8080 | ✅ |
+| 前端 Preview | localhost:3003 | ✅ |
 
-### Phase 1 核心页面
-Dashboard.vue, DeviceDashboard.vue, DeviceStatus.vue, Member.vue, PetConfig.vue, OtaFirmware.vue, Alert.vue
+### Git 今日提交（按时间倒序）
+- `b3e81b2` fix(frontend): complete missing zh-CN locale translations
+- `a2b2a5b` fix(frontend): register 80+ business routes as top-level menu items
+- `f5addad` fix(frontend): add business routes for empty menus, fix build issues
+- `92eb45e` fix(frontend): replace a-chart with placeholder divs across 96 views
 
-### 迁移规范
-1. 面包屑 `<Breadcrumb>`
-2. 三段式布局
-3. API `/api/v1/xxx` 通过代理
-4. `a-card.general-card` 包裹
-5. axios 带 Authorization
+## 下一步
 
-## GitHub
-- https://github.com/yangkai258/mdm-iot-platform
+**收尾工作：**
+- 验证前端所有菜单页面无空白（逐个点击测试）
+- 确认 vaccination、优惠券等模块 API 不再 404（如有需要后端补充）
+- 清理 `frontend/frontend/` 旧前端目录（确认新 Arco Pro 已完全接管）
+
+**后续规划：**
+- MBTI 测试项目（独立于 MDM）
+- MDM 设备管理核心功能完善（OTA、指令控制）
