@@ -1,34 +1,31 @@
-# HEARTBEAT.md - 服务状态 (2026-04-06 15:40)
+# HEARTBEAT.md - 服务状态 (2026-04-06 23:50)
 
 ## 当前状态
 - ✅ Docker Desktop 运行中（PostgreSQL/Redis/EMQX healthy）
-- ✅ 后端 http://localhost:8080 运行中
-- ✅ 前端 Preview http://localhost:3003 运行中
+- ✅ 后端 localhost:8080 运行中
+- ✅ 前端 Dev Server localhost:3003 运行中（PID 27188）
 
 ## 今日完成
-1. ✅ 统一菜单模块 - 删掉重复的 MDMMenu，将所有功能合并到单一 mdm.ts
-2. ✅ 路由嵌套结构 - 每个模块作为父路由，子路由嵌套在父路由下
-3. ✅ 补全缺失的 locale 翻译（51个菜单键）
-4. ✅ 修复 API proxy 配置（preview 模式可正常登录）
-5. ✅ Git commit: `f8c7e8a` feat(frontend): unify all menu modules into single mdm.ts
-
-## Git Commits（今日）
-- `92eb45e` fix(frontend): replace a-chart with placeholder divs
-- `f5addad` fix(frontend): add business routes, fix build issues
-- `a2b2a5b` fix(frontend): register 80+ business routes as top-level menu items
-- `b3e81b2` fix(frontend): complete missing zh-CN locale translations
-- `fa49637` fix(frontend): restructure routes as nested children under parent modules
-- `7a3fa04` chore(frontend): remove business.ts (merged into mdm.ts)
-- `f8c7e8a` feat(frontend): unify all menu modules into single mdm.ts
-
-## 待处理
-- 菜单仍有少量 fallback 到 route.name 的项（locale 键未注册）
-- Vite chunk 缓存问题（硬刷新 Ctrl+Shift+R）
+1. ✅ 50个缺失视图文件批量创建占位组件
+2. ✅ 批量创建 API stubs（content/coupon/device/knowledge/marketing/members 等）
+3. ✅ 创建 ParentLayout.vue 解决父路由无组件问题
+4. ✅ page-layout.vue 移除 keep-alive，添加 v-if="Component" 守卫
+5. ✅ main.ts 添加 chunk 加载失败自动重试处理
+6. ✅ Git commit `a4eab3f` feat(frontend): create 40 missing view stubs + API stubs + fix route parent components
+7. ✅ Git push 成功
 
 ## 访问信息
-- 新前端：http://localhost:3003 （admin / admin123）
-- 后端：http://localhost:8080
-- EMQX：http://localhost:18083 （admin/public）
+- 前端: http://localhost:3003 （admin / admin123）
+- 后端: http://localhost:8080
+- EMQX: http://localhost:18083 （admin/public）
 
 ## GitHub
 - https://github.com/yangkai258/mdm-iot-platform
+
+## 待处理
+- 会员管理导航后第4个页面开始不显示（chunk 加载问题？持续测试中）
+- locale 键 `menu.otaManage.firmware` 缺失
+- vaccination 等 API 404（后端未实现）
+
+## 错题本
+已创建 `memory/ERROR_LOG.md`，记录今日教训
