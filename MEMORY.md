@@ -911,3 +911,41 @@ Fill in the 4 critical gaps or clarify scope with user
 | `src/components/menu/index.vue` | 菜单 locale fallback |
 | `src/router/routes/modules/dashboard.ts` | hideInMenu 标记 |
 | `src/locale/zh-CN.ts` | 清除重复 key |
+
+---
+
+## 2026-04-06 工作教训
+
+### 前端导航"点几个页面就不显示"问题（排查中）
+- **现象**：会员管理下前3个功能正常，第4个开始空白，刷新恢复
+- **已修复**：
+  1. 移除 keep-alive（缓存导致 Component undefined）
+  2. 添加 -if="Component" 兜底
+  3. 添加 chunk 加载错误处理 + 自动重试
+- **根因**：可能是 ite preview 懒加载 chunk 不稳定，或 keep-alive 缓存了 undefined 的组件
+- **教训**：快速连续点击多个菜单时，懒加载 chunk 容易失败
+- **状态**：用户持续测试中
+
+### 父路由必须有独立组件
+- **问题**：父路由只有 edirect，子路由无处渲染
+- **修复**：ParentLayout.vue 作为通用父布局
+- **教训**：所有父路由都要有 component: ParentLayout
+
+### 50+ 视图文件缺失
+- **问题**：路由注册了但 .vue 文件不存在，页面空白
+- **教训**：新建路由时必须同步创建视图文件
+- **预防**：建立路由-文件对应检查脚本
+
+### locale 键必须与路由 meta.locale 完全匹配
+- **问题**：zh-CN.ts 缺少 menu.otaManage.firmware 等键，菜单显示英文 key
+- **教训**：每次新增路由菜单，同步添加 locale 翻译
+
+### Vite Dev vs Preview 区别
+- 
+pm run dev：稳定，快速，支持 HMR
+- ite preview：懒加载 chunk 容易失败，不适合开发
+- **教训**：开发阶段永远用 dev server，不要用 preview
+
+### API Stubs 同样重要
+- 视图组件 import 了 API 但文件不存在 → 运行时崩溃
+- **教训**：批量创建视图文件时，同步创建 API stubs

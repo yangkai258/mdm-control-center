@@ -1,41 +1,45 @@
-# 会话快照 - 2026-04-06 21:02 (Asia/Shanghai)
+# 会话快照 - 2026-04-07 21:02 (Asia/Shanghai)
 
 ## 当前任务
-- MDM 控制中台前端修复 — 多项 P0 问题已解决，今日进入收尾阶段
+- 无活跃任务 - 系统处于空闲状态
 
 ## 进度记录
+- **最近工作日**：2026-04-06，前端路由与导航问题集中修复
+  - 空白页面路由注册（40+路由从嵌套改为顶级路由）
+  - 菜单 locale 翻译补全（51个缺失键）
+  - API 登录失败修复（vite proxy 配置）
+  - 50个缺失视图文件 + API stubs 批量创建
+  - ParentLayout 父组件问题修复
+  - keep-alive 移除 + chunk 错误处理
 
-### 今日已完成（21:00 前）
+- **已知遗留问题**：
+  - 快速连续点击多个菜单时懒加载 chunk 有时失败（vite preview/dev server 均存在）
+  - `menu.otaManage.firmware` 等部分 locale 键仍缺失
+  - vaccination 等 API 404（后端未实现）
 
-| # | 问题 | 状态 |
-|---|------|------|
-| 1 | 空白页面路由注册（40+ 菜单项空白） | ✅ 已修复 (`a2b2a5b`) |
-| 2 | 菜单显示 locale key 而非中文（缺 51 个翻译） | ✅ 已修复 (`b3e81b2`) |
-| 3 | API 登录失败（/api 未转发后端） | ✅ 已修复（preview 改用 `--config vite.config.dev.ts`） |
-| 4 | Dev server SPA 路由 404 | ✅ 绕过（改用 preview 模式） |
-| 5 | a-chart 依赖问题导致构建失败 | ✅ 已替换为 placeholder divs (`92eb45e`) |
-| 6 | 路由重复/冲突（dashboard.ts 旧路由干扰） | ✅ 已清理 (`f5addad`, `fa49637`) |
-
-### 服务状态（21:02）
-| 服务 | 端口 | 状态 |
-|------|------|------|
-| Docker (PostgreSQL/Redis/EMQX) | - | ✅ |
-| 后端 | localhost:8080 | ✅ |
-| 前端 Preview | localhost:3003 | ✅ |
-
-### Git 今日提交（按时间倒序）
-- `b3e81b2` fix(frontend): complete missing zh-CN locale translations
-- `a2b2a5b` fix(frontend): register 80+ business routes as top-level menu items
-- `f5addad` fix(frontend): add business routes for empty menus, fix build issues
-- `92eb45e` fix(frontend): replace a-chart with placeholder divs across 96 views
+- **无活跃 Agent**：当前无任何 sub-agent 运行
 
 ## 下一步
+- 等待用户指令或新需求
+- 可继续排查 chunk 懒加载稳定性问题
+- 或启动新一轮功能开发
 
-**收尾工作：**
-- 验证前端所有菜单页面无空白（逐个点击测试）
-- 确认 vaccination、优惠券等模块 API 不再 404（如有需要后端补充）
-- 清理 `frontend/frontend/` 旧前端目录（确认新 Arco Pro 已完全接管）
+## 项目状态摘要
+| 服务 | 地址 | 状态 |
+|------|------|------|
+| MDM 后端 | localhost:8080 | 待确认 |
+| MDM 前端 | localhost:3000 | 待确认 |
+| PostgreSQL | Docker | 待确认 |
+| Redis | Docker | 待确认 |
+| EMQX | localhost:18083 | 待确认 |
 
-**后续规划：**
-- MBTI 测试项目（独立于 MDM）
-- MDM 设备管理核心功能完善（OTA、指令控制）
+## 最近 Git Commits (mdm-iot-platform)
+- `a4eab3f` feat(frontend): create 40 missing view stubs + API stubs + fix route parent components (2026-04-06)
+- `a2b2a5b` fix(frontend): register 80+ business routes as top-level menu items (2026-04-06)
+- `b3e81b2` fix(frontend): complete missing zh-CN locale translations (2026-04-06)
+- `92eb45e` fix(frontend): replace a-chart with placeholder divs (2026-04-06)
+- `24dcc4c` fix: login system - API path, proxy rewrite, response codes, breadcrumb, i18n (2026-04-01)
+
+---
+
+_最后更新：2026-04-07 21:02_
